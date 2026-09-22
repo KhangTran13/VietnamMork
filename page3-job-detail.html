@@ -149,6 +149,29 @@
   .toggle-group button.on { border-color: var(--blue); color: var(--blue); background: #F4F8FF; font-weight: 600; }
   .chip-select { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 38px; }
   .chip-select .chip { background: var(--bg-soft); color: var(--blue); font-size: 12px; padding: 3px 9px; border-radius: var(--radius-sm); }
+
+  /* ---------- searchable multi-select (used by "5 phúc lợi mong muốn") ---------- */
+  .multiselect { position: relative; }
+  .multiselect-trigger { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; min-height: 38px; background: var(--white); display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+  .multiselect-trigger .chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .multiselect-trigger .placeholder { color: #A7AEBE; font-size: 13px; }
+  .multiselect-trigger .chip { background: var(--bg-soft); color: var(--blue); font-size: 12px; padding: 3px 6px 3px 9px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 5px; }
+  .multiselect-trigger .chip .x { cursor: pointer; font-weight: 700; opacity: .55; line-height: 1; }
+  .multiselect-trigger .chip .x:hover { opacity: 1; }
+  .multiselect-trigger .chevron { color: var(--text-gray); font-size: 11px; flex-shrink: 0; transition: transform .15s; }
+  .multiselect.open .chevron { transform: rotate(180deg); }
+  .multiselect-panel { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 8px 24px rgba(0,0,0,.14); z-index: 30; overflow: hidden; }
+  .multiselect-search { padding: 8px; border-bottom: 1px solid var(--border-light); }
+  .multiselect-search input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; font-size: 13px; outline: none; }
+  .multiselect-options { list-style: none; margin: 0; padding: 6px; max-height: 220px; overflow-y: auto; }
+  .multiselect-options li { display: flex; align-items: center; gap: 10px; padding: 8px; font-size: 13.5px; border-radius: var(--radius-sm); }
+  .multiselect-options li:hover { background: #F4F8FF; }
+  .multiselect-options li.disabled { opacity: .4; }
+  .multiselect-options li[hidden] { display: none; }
+  .checkbox-sq { width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 12px; font-weight: 700; }
+  .multiselect-options li.selected .checkbox-sq { background: var(--blue); border-color: var(--blue); }
+  .multiselect-options li.selected .checkbox-sq::after { content: "\2713"; }
+  .multiselect-hint { padding: 7px 12px; font-size: 11px; color: var(--text-gray); border-top: 1px solid var(--border-light); }
   .checkline { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 14px; }
 
   .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-top: 1px solid var(--border-light); flex-shrink: 0; flex-wrap: wrap; }
@@ -454,8 +477,30 @@
               <div class="field"><label>Nơi làm việc mong muốn <span class="req">*</span></label>
                 <div class="chip-select" id="field-desiredLocation"><span style="color:#A7AEBE;font-size:13px;">Chọn nơi làm việc</span></div>
               </div>
-              <div class="field"><label>5 phúc lợi mong muốn</label>
-                <div class="chip-select" id="field-desiredBenefits"><span class="chip">Đào tạo</span><span class="chip">Điện thoại</span><span class="chip">+3</span></div>
+              <div class="field">
+                <label>5 phúc lợi mong muốn</label>
+                <div class="multiselect" id="field-desiredBenefits">
+                  <button type="button" class="multiselect-trigger" id="benefitsTrigger">
+                    <span class="chips" id="benefitsChips"><span class="placeholder">Chọn phúc lợi (tối đa 5)</span></span>
+                    <span class="chevron">&#9662;</span>
+                  </button>
+                  <div class="multiselect-panel" id="benefitsPanel" hidden>
+                    <div class="multiselect-search"><input type="text" id="benefitsSearch" placeholder="Tìm phúc lợi..."></div>
+                    <ul class="multiselect-options" id="benefitsOptions">
+                      <li data-value="Căn tin"><span class="checkbox-sq"></span>Căn tin</li>
+                      <li data-value="Đào tạo"><span class="checkbox-sq"></span>Đào tạo</li>
+                      <li data-value="Điện thoại"><span class="checkbox-sq"></span>Điện thoại</li>
+                      <li data-value="Du lịch"><span class="checkbox-sq"></span>Du lịch</li>
+                      <li data-value="Giải thưởng"><span class="checkbox-sq"></span>Giải thưởng</li>
+                      <li data-value="Laptop"><span class="checkbox-sq"></span>Laptop</li>
+                      <li data-value="Khám sức khỏe"><span class="checkbox-sq"></span>Khám sức khỏe</li>
+                      <li data-value="Nghỉ phép"><span class="checkbox-sq"></span>Nghỉ phép</li>
+                      <li data-value="Thưởng"><span class="checkbox-sq"></span>Thưởng</li>
+                      <li data-value="Khác"><span class="checkbox-sq"></span>Khác</li>
+                    </ul>
+                    <div class="multiselect-hint" id="benefitsHint">Chọn tối đa 5 mục</div>
+                  </div>
+                </div>
               </div>
 
               <div class="field unit"><label>Mức lương mong muốn <span class="req">*</span></label><input type="number" id="field-desiredSalary" name="desiredSalary" placeholder="Nhập mức lương"><span>USD/tháng</span></div>
@@ -495,6 +540,77 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !overlay.hidden) closeApply();
   });
+
+  // "5 phúc lợi mong muốn" — searchable multi-select, max 5, square checkboxes
+  (function () {
+    var wrap = document.getElementById('field-desiredBenefits');
+    var trigger = document.getElementById('benefitsTrigger');
+    var panel = document.getElementById('benefitsPanel');
+    var search = document.getElementById('benefitsSearch');
+    var hint = document.getElementById('benefitsHint');
+    var chipsWrap = document.getElementById('benefitsChips');
+    var items = Array.prototype.slice.call(document.querySelectorAll('#benefitsOptions li'));
+    var MAX = 5;
+    var selected = [];
+
+    function render() {
+      chipsWrap.innerHTML = '';
+      if (selected.length === 0) {
+        chipsWrap.innerHTML = '<span class="placeholder">Chọn phúc lợi (tối đa 5)</span>';
+      } else {
+        selected.forEach(function (val) {
+          var chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.innerHTML = val + ' <span class="x" data-val="' + val + '">&times;</span>';
+          chipsWrap.appendChild(chip);
+        });
+      }
+      items.forEach(function (li) {
+        var val = li.getAttribute('data-value');
+        var isSel = selected.indexOf(val) > -1;
+        li.classList.toggle('selected', isSel);
+        li.classList.toggle('disabled', !isSel && selected.length >= MAX);
+      });
+      hint.textContent = 'Đã chọn ' + selected.length + '/' + MAX;
+    }
+
+    function toggleValue(val) {
+      var idx = selected.indexOf(val);
+      if (idx > -1) selected.splice(idx, 1);
+      else if (selected.length < MAX) selected.push(val);
+      render();
+    }
+
+    function openPanel() { panel.hidden = false; wrap.classList.add('open'); search.value = ''; items.forEach(function (li) { li.hidden = false; }); search.focus(); }
+    function closePanel() { panel.hidden = true; wrap.classList.remove('open'); }
+
+    trigger.addEventListener('click', function () {
+      if (panel.hidden) openPanel(); else closePanel();
+    });
+    items.forEach(function (li) {
+      li.addEventListener('click', function () {
+        if (li.classList.contains('disabled')) return;
+        toggleValue(li.getAttribute('data-value'));
+      });
+    });
+    chipsWrap.addEventListener('click', function (e) {
+      if (e.target.classList.contains('x')) {
+        e.stopPropagation();
+        toggleValue(e.target.getAttribute('data-val'));
+      }
+    });
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      items.forEach(function (li) {
+        li.hidden = li.getAttribute('data-value').toLowerCase().indexOf(q) === -1;
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) closePanel();
+    });
+
+    render();
+  })();
 </script>
 
 </body>
