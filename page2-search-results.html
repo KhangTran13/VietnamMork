@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Search Results (Software Engineer) — Mock Flow Page 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #005AFF; --navy: #001744; --orange: #FF7D55; --link-light: #82DCFF;
+    --text: #333333; --text-gray: #767676; --border: #EAEAF0; --border-light: #F1F1F1;
+    --bg-soft: #F2F6FF; --white: #FFFFFF; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 12px;
+    --radius-pill: 999px; --container: 1200px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.5; color: var(--text); background: #F7F9FC; }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 16px; }
+
+  .announce-bar { background: var(--blue); color: var(--white); font-size: 12.5px; }
+  .announce-bar .container { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 7px 16px; position: relative; text-align: center; }
+  .announce-bar .close-x { position: absolute; right: 16px; opacity: .85; }
+  .link-light { color: var(--link-light); text-decoration: underline; font-weight: 500; }
+
+  header.nav { background: var(--blue); padding: 12px 0; }
+  header.nav .container { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .logo .swirl { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(from 90deg, var(--orange), var(--white), var(--orange)); }
+  .search-bar { flex: 1; min-width: 220px; background: var(--white); border-radius: var(--radius-pill); padding: 4px; display: flex; align-items: center; gap: 6px; }
+  .search-bar .field { flex: 1; display: flex; align-items: center; gap: 8px; padding: 8px 14px; min-width: 0; }
+  .search-bar input { border: none; outline: none; font-size: 14px; font-family: inherit; color: var(--text); width: 100%; background: transparent; }
+  .search-bar .loc { display: none; align-items: center; gap: 6px; padding: 8px 12px; color: var(--text); white-space: nowrap; font-size: 13px; }
+  .search-bar .go { width: 34px; height: 34px; border-radius: 50%; background: var(--orange); color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-right { display: flex; align-items: center; gap: 14px; color: var(--white); font-size: 13px; flex-shrink: 0; }
+  .nav-right .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
+
+  .filter-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 0; overflow-x: auto; }
+  .filter-bar .container { display: flex; gap: 8px; }
+  .chip { flex-shrink: 0; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 7px 14px; font-size: 12.5px; color: var(--text); white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+
+  .results-head { padding: 16px 0 4px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .results-count { font-weight: 700; font-size: 15px; }
+  .results-count b { color: var(--blue); }
+  .sort { font-size: 12.5px; color: var(--text-gray); display: flex; align-items: center; gap: 6px; }
+
+  .job-list { display: flex; flex-direction: column; gap: 10px; padding: 12px 0 40px; }
+  .job-row { background: var(--white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 16px; display: flex; gap: 14px; position: relative; transition: box-shadow .15s; }
+  .job-row .idx { position: absolute; top: -9px; left: 14px; background: var(--navy); color: var(--white); font-size: 10.5px; font-weight: 700; border-radius: var(--radius-pill); padding: 2px 9px; }
+  .job-row .logo-box { width: 56px; height: 56px; border-radius: var(--radius-sm); background: var(--bg-soft); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: var(--blue); text-align: center; }
+  .job-row .body { flex: 1; min-width: 0; }
+  .job-row .title { font-weight: 700; font-size: 15.5px; }
+  .job-row .urgent { display: inline-flex; align-items: center; gap: 3px; color: var(--orange); font-weight: 700; font-size: 11px; margin-left: 8px; vertical-align: middle; }
+  .job-row .company { color: var(--text-gray); font-size: 13px; margin-top: 4px; }
+  .job-row .meta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 12.5px; }
+  .job-row .meta .salary { color: var(--orange); font-weight: 700; }
+  .job-row .meta .loc { color: var(--text); }
+  .job-row .sub-meta { color: var(--text-gray); font-size: 12px; margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .job-row .tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .job-row .tag { background: var(--bg-soft); color: var(--blue); font-size: 11px; padding: 3px 9px; border-radius: var(--radius-sm); }
+  .job-row .heart { position: absolute; top: 14px; right: 16px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; color: #C6CEDD; }
+
+  @media (max-width: 700px) {
+    .search-bar .loc { display: none; }
+    .nav-right span.label { display: none; }
+    header.nav .container { gap: 10px; }
+    .job-row { flex-direction: column; }
+    .job-row .logo-box { width: 40px; height: 40px; }
+    .results-head { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce-bar">
+  <div class="container">
+    <span>&#10003;</span>
+    <span>Hãy bảo vệ chính mình trước các trường hợp mạo danh VietnamWorks.</span>
+    <a href="#" class="link-light">Xem thêm</a>
+    <span class="close-x">&times;</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <a href="page1-home.html" class="logo"><span class="swirl"></span>vietnamworks</a>
+    <div class="search-bar">
+      <div class="field">&#128269;<input type="text" value="software engineer"></div>
+      <div class="loc">&#128205; Tất cả địa điểm</div>
+      <span class="go">&#128269;</span>
+    </div>
+    <nav class="nav-right">
+      <span class="label">&#9776; Danh mục</span>
+      <span class="icon-btn">&#128276;</span>
+      <span class="icon-btn">&#128100;</span>
+    </nav>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <div class="container">
+    <div class="chip">Ngành nghề &#9662;</div>
+    <div class="chip">Tất cả lĩnh vực &#9662;</div>
+    <div class="chip">Tất cả cấp bậc &#9662;</div>
+    <div class="chip">Lương trên $5,555</div>
+    <div class="chip">Tuyển gấp</div>
+    <div class="chip">Mới đăng &#9662;</div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="results-head">
+    <div class="results-count">100+ việc làm <b>&quot;software engineer&quot;</b> phù hợp</div>
+    <div class="sort">Sắp xếp theo: <b>Ngày cập nhật</b> &#9662;</div>
+  </div>
+
+  <div class="job-list">
+    <div class="job-row">
+      <span class="idx">1</span>
+      <div class="logo-box">HELLA</div>
+      <div class="body">
+        <div class="heart">&#9825;</div>
+        <div class="title">Embedded Software Engineer (Flash Boot...)</div>
+        <div class="company">Hella Vietnam</div>
+        <div class="meta"><span class="salary">Thương lượng</span><span class="loc">&#128205; Hồ Chí Minh</span></div>
+        <div class="sub-meta">Cập nhật 1 ngày trước</div>
+      </div>
+    </div>
+
+    <a href="page3-job-detail.html">
+    <div class="job-row">
+      <span class="idx">2</span>
+      <div class="logo-box">WOW<br>SUITE</div>
+      <div class="body">
+        <div class="heart">&#9825;</div>
+        <div class="title">General Manager / Managing Director — Savvy Smart Deals<span class="urgent">&#9889;Urgent</span></div>
+        <div class="company">WOWSUITE SOFTWARE</div>
+        <div class="meta"><span class="salary">Thương lượng</span><span class="loc">&#128205; Hồ Chí Minh</span></div>
+        <div class="sub-meta">Đăng 21 ngày trước &nbsp;|&nbsp; <span style="color:#E8442E">Rất đông ứng viên</span></div>
+        <div class="tags"><span class="tag">Consumer Products</span><span class="tag">E-Commerce</span><span class="tag">Global E-Commerce</span><span class="tag">+2</span></div>
+      </div>
+    </div>
+    </a>
+
+    <div class="job-row">
+      <span class="idx">3</span>
+      <div class="logo-box">FPT</div>
+      <div class="body">
+        <div class="heart">&#9825;</div>
+        <div class="title">C++ Developer</div>
+        <div class="company">FPT Software</div>
+        <div class="meta"><span class="salary">Thương lượng</span><span class="loc">&#128205; Hà Nội</span></div>
+        <div class="sub-meta">Cập nhật 4 ngày trước</div>
+      </div>
+    </div>
+
+    <div class="job-row">
+      <span class="idx">4</span>
+      <div class="logo-box">NEXON</div>
+      <div class="body">
+        <div class="heart">&#9825;</div>
+        <div class="title">3D Rigger<span class="urgent">&#9889;Urgent</span></div>
+        <div class="company">Công Ty TNHH Nexon Creative Studio VINA</div>
+        <div class="meta"><span class="salary">Thương lượng</span><span class="loc">&#128205; Hồ Chí Minh</span></div>
+        <div class="sub-meta">Đăng lại 21 ngày trước</div>
+        <div class="tags"><span class="tag">Skinning</span><span class="tag">Game Design</span><span class="tag">3D Rigging</span><span class="tag">+2</span></div>
+      </div>
+    </div>
+
+    <div class="job-row">
+      <span class="idx">5</span>
+      <div class="logo-box">BOSCH</div>
+      <div class="body">
+        <div class="heart">&#9825;</div>
+        <div class="title">Automotive Diagnostic Software Engineer</div>
+        <div class="company">Bosch Global Software Technologies</div>
+        <div class="meta"><span class="salary">Thương lượng</span><span class="loc">&#128205; Hà Nội</span></div>
+        <div class="sub-meta">Đăng 4 ngày trước</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ứng tuyển công việc — Mock Flow Page 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #005AFF; --navy: #001744; --orange: #FF7D55; --link-light: #82DCFF; --green: #1E9E52;
+    --text: #333333; --text-gray: #767676; --border: #DADFE8; --border-light: #F1F1F1;
+    --bg-soft: #F2F6FF; --white: #FFFFFF; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 12px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.45; color: var(--text); background: #F7F9FC; }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  input, select { font-family: inherit; }
+
+  /* ---------- dimmed background page (page 3 stand-in) ---------- */
+  .bg-page { filter: blur(1px); }
+  header.nav { background: var(--blue); padding: 12px 0; }
+  header.nav .inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 18px; }
+  .logo .swirl { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(from 90deg, var(--orange), var(--white), var(--orange)); }
+  .bg-search { flex: 1; max-width: 500px; background: var(--white); border-radius: var(--radius-pill); padding: 9px 16px; color: var(--text-gray); }
+  .bg-job-card { max-width: 1200px; margin: 20px auto; padding: 0 16px; }
+  .bg-job-card .card { background: var(--white); border-radius: var(--radius-lg); padding: 20px; max-width: 760px; }
+  .bg-job-card h1 { font-size: 20px; margin: 0 0 8px; }
+  .bg-job-card .salary { color: var(--orange); font-weight: 700; font-size: 13px; }
+
+  /* ---------- overlay + modal ---------- */
+  .overlay { position: fixed; inset: 0; background: rgba(10, 14, 24, .55); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 24px; }
+  .modal { background: var(--white); width: 100%; max-width: 900px; max-height: 88vh; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
+  .modal-header h2 { margin: 0; font-size: 17px; font-weight: 700; }
+  .modal-header .close { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-gray); font-size: 18px; background: none; border: none; }
+
+  .modal-body { display: flex; flex: 1; min-height: 0; }
+  .modal-side { width: 260px; flex-shrink: 0; padding: 20px 24px; border-right: 1px solid var(--border-light); overflow-y: auto; }
+  .modal-side .company { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .modal-side .company .logo-box { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--blue); font-weight: 800; font-size: 9px; display: flex; align-items: center; justify-content: center; text-align: center; flex-shrink: 0; }
+  .modal-side .company .name { font-weight: 700; font-size: 13.5px; }
+  .modal-side .job-title { font-weight: 700; font-size: 14.5px; margin-bottom: 10px; }
+  .modal-side .job-meta { font-size: 12.5px; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: var(--text); }
+  .modal-side .job-meta.salary { color: var(--orange); font-weight: 700; }
+
+  .modal-scroll { flex: 1; overflow-y: auto; padding: 20px 24px 32px; } /* <-- the verified scrollable region */
+
+  .section { border: 1px solid var(--border-light); border-radius: var(--radius-md); margin-bottom: 16px; overflow: hidden; }
+  .section-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #FAFBFD; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .section-body { padding: 18px 16px; }
+
+  .radio-row { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 10px; }
+  .radio-row input { margin-top: 3px; }
+  .radio-row.active { border-color: var(--blue); background: #F4F8FF; }
+  .radio-row .rt { font-weight: 600; font-size: 13.5px; }
+  .radio-row .rt .tag { background: #FFF3E6; color: #D97A1F; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: var(--radius-sm); margin-left: 6px; }
+  .radio-row .rs { font-size: 12px; color: var(--text-gray); margin-top: 2px; }
+  .radio-row .rs a { color: var(--blue); text-decoration: underline; }
+
+  .upload-box { border: 1.5px dashed #B9CCFB; border-radius: var(--radius-md); padding: 18px; text-align: center; margin-bottom: 6px; }
+  .upload-box .btn-upload { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: var(--white); font-weight: 600; font-size: 13.5px; padding: 9px 18px; border-radius: var(--radius-pill); border: none; }
+  .upload-hint { text-align: center; font-size: 11.5px; color: var(--text-gray); margin-top: 8px; }
+
+  .avatar-row { display: flex; justify-content: center; margin-bottom: 18px; }
+  .avatar-row .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--bg-soft); display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 24px; }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; }
+  .field label .req { color: #E8442E; }
+  .field input, .field select { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13.5px; color: var(--text); outline: none; }
+  .field input::placeholder { color: #A7AEBE; }
+  .field input:focus, .field select:focus { border-color: var(--blue); }
+  .tel-input { display: flex; align-items: stretch; }
+  .tel-input .cc { border: 1px solid var(--border); border-right: none; border-radius: var(--radius-sm) 0 0 var(--radius-sm); padding: 9px 10px; font-size: 13px; background: #FAFBFD; flex-shrink: 0; display:flex; align-items:center; gap:4px; }
+  .tel-input input { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; width: 100%; }
+  .field .unit { position: relative; }
+  .field .unit span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--text-gray); }
+  .toggle-group { display: flex; gap: 10px; }
+  .toggle-group button { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px; font-size: 13.5px; background: var(--white); color: var(--text); }
+  .toggle-group button.on { border-color: var(--blue); color: var(--blue); background: #F4F8FF; font-weight: 600; }
+  .chip-select { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 38px; }
+  .chip-select .chip { background: var(--bg-soft); color: var(--blue); font-size: 12px; padding: 3px 9px; border-radius: var(--radius-sm); }
+  .checkline { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 14px; }
+
+  .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-top: 1px solid var(--border-light); flex-shrink: 0; flex-wrap: wrap; }
+  .modal-footer .agree { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .modal-footer .agree a { color: var(--blue); text-decoration: underline; }
+  .btn-submit { background: var(--orange); color: var(--white); font-weight: 700; font-size: 14px; border-radius: var(--radius-pill); padding: 11px 30px; border: none; }
+
+  @media (max-width: 700px) {
+    .overlay { padding: 0; align-items: stretch; }
+    .modal { max-width: none; max-height: none; height: 100%; border-radius: 0; }
+    .modal-body { flex-direction: column; }
+    .modal-side { width: auto; border-right: none; border-bottom: 1px solid var(--border-light); flex-shrink: 0; max-height: none; padding: 16px 18px; }
+    .modal-scroll { padding: 16px 18px 32px; }
+    .field-grid { grid-template-columns: 1fr; }
+    .modal-footer { padding: 12px 18px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); flex-direction: column; align-items: stretch; }
+    .btn-submit { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- dimmed backdrop: a stand-in for page 3 behind the modal -->
+<div class="bg-page" aria-hidden="true">
+  <header class="nav">
+    <div class="inner">
+      <span class="logo"><span class="swirl"></span>vietnamworks</span>
+      <div class="bg-search">software engineer</div>
+    </div>
+  </header>
+  <div class="bg-job-card">
+    <div class="card">
+      <h1>General Manager / Managing Director — Savvy Smart Deals</h1>
+      <div class="salary">Thương lượng &nbsp;·&nbsp; Hồ Chí Minh</div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 id="modal-title">Ứng tuyển công việc</h2>
+      <a href="page3-job-detail.html" class="close" aria-label="Đóng">&times;</a>
+    </div>
+
+    <div class="modal-body">
+      <!-- fixed left column: does NOT scroll -->
+      <div class="modal-side">
+        <div class="company">
+          <div class="logo-box">WOW<br>SUITE</div>
+          <div class="name">WOWSUITE SOFTWARE</div>
+        </div>
+        <div class="job-title">General Manager / Managing Director — Savvy Smart Deals</div>
+        <div class="job-meta salary">&#128179; Thương lượng</div>
+        <div class="job-meta">&#128205; Hồ Chí Minh</div>
+      </div>
+
+      <!-- scrollable right column: verified against the live VietnamWorks apply
+           modal (overflow-y: auto, scrollHeight ~3.2x the visible height) -->
+      <div class="modal-scroll" id="modalScroll">
+
+        <div class="section">
+          <div class="section-head">Hồ sơ của bạn <span>&#9650;</span></div>
+          <div class="section-body">
+            <label class="radio-row">
+              <input type="radio" name="apply-type" id="field-profile-online">
+              <span><span class="rt">Hồ sơ VietnamWorks <span class="tag">Chưa được duyệt</span></span><span class="rs">Hồ sơ trực tuyến • Hoàn thiện: 23% • <a href="#">Cập nhật</a></span></span>
+            </label>
+            <label class="radio-row active">
+              <input type="radio" name="apply-type" id="field-profile-file" checked>
+              <span><span class="rt">CV_UngVien.pdf</span><span class="rs">Hồ sơ đính kèm • Đã tải lên hôm nay</span></span>
+            </label>
+            <div class="upload-box">
+              <button class="btn-upload" type="button">&#8853; Chọn hồ sơ từ máy của bạn</button>
+              <div class="upload-hint">Hỗ trợ định dạng .doc, .docx, .pdf có kích thước dưới 5120KB</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Thông tin ứng tuyển <span>&#9650;</span></div>
+          <div class="section-body">
+            <div class="avatar-row"><div class="avatar">&#128100;</div></div>
+
+            <div class="field-grid">
+              <div class="field"><label>Họ <span class="req">*</span></label><input type="text" id="field-lastName" name="lastName" placeholder="Nhập họ của bạn"></div>
+              <div class="field"><label>Tên <span class="req">*</span></label><input type="text" id="field-firstName" name="firstName" placeholder="Nhập tên của bạn"></div>
+
+              <div class="field"><label>Chức danh <span class="req">*</span></label><input type="text" id="field-jobTitle" name="jobTitle" placeholder="Nhập chức danh của bạn"></div>
+              <div class="field"><label>Cấp bậc hiện tại <span class="req">*</span></label>
+                <select id="field-currentLevel" name="currentLevel"><option>Vui lòng chọn...</option><option>Mới tốt nghiệp</option><option>Nhân viên</option><option>Trưởng nhóm</option><option>Quản lý</option><option>Giám đốc và cấp cao hơn</option></select>
+              </div>
+
+              <div class="field unit"><label>Số năm kinh nghiệm</label><input type="number" id="field-yearsExp" name="yearsExp" placeholder="Nhập số năm kinh nghiệm"><span>Năm</span></div>
+              <div class="field"><label>Bằng cấp cao nhất <span class="req">*</span></label>
+                <select id="field-degree" name="degree"><option>Vui lòng chọn...</option><option>Trung học</option><option>Cao đẳng</option><option>Đại học</option><option>Thạc sĩ</option><option>Tiến sĩ</option></select>
+              </div>
+
+              <div class="field"><label>Ngành nghề hiện tại</label>
+                <select id="field-currentIndustry" name="currentIndustry"><option>Vui lòng chọn...</option><option>Công nghệ thông tin</option><option>Thương mại điện tử</option><option>Kinh doanh / Bán hàng</option></select>
+              </div>
+              <div class="field"><label>Lĩnh vực hiện tại</label>
+                <select id="field-currentField" name="currentField"><option>Vui lòng chọn...</option><option>Bán lẻ/Bán sỉ</option><option>Phần mềm</option><option>Tài chính</option></select>
+              </div>
+
+              <div class="field unit"><label>Mức lương hiện tại</label><input type="number" id="field-currentSalary" name="currentSalary" placeholder="Nhập mức lương"><span>USD/tháng</span></div>
+              <div class="field">
+                <label>Điện thoại <span class="req">*</span></label>
+                <!-- This is the field step 6 programmatically edits. -->
+                <div class="tel-input">
+                  <span class="cc">&#127894; +84</span>
+                  <input type="tel" id="field-phone" name="phone" placeholder="Nhập số điện thoại" autocomplete="tel" inputmode="tel">
+                </div>
+              </div>
+            </div>
+
+            <div class="field-grid" style="margin-top:14px;">
+              <div class="field"><label>Ngày sinh <span class="req">*</span></label><input type="text" id="field-dob" name="dob" placeholder="DD/MM/YYYY"></div>
+              <div class="field"><label>Quốc tịch <span class="req">*</span></label>
+                <select id="field-nationality" name="nationality"><option>Người Việt Nam</option><option>Khác</option></select>
+              </div>
+
+              <div class="field"><label>Giới tính <span class="req">*</span></label>
+                <div class="toggle-group" role="radiogroup" aria-label="Giới tính">
+                  <button type="button" id="field-gender-male">Nam</button>
+                  <button type="button" id="field-gender-female">Nữ</button>
+                </div>
+              </div>
+              <div class="field"><label>Tình trạng hôn nhân <span class="req">*</span></label>
+                <div class="toggle-group" role="radiogroup" aria-label="Tình trạng hôn nhân">
+                  <button type="button" id="field-marital-single">Độc thân</button>
+                  <button type="button" id="field-marital-married">Đã kết hôn</button>
+                </div>
+              </div>
+
+              <div class="field"><label>Quốc gia/ Tỉnh thành/ Quận huyện <span class="req">*</span></label>
+                <select id="field-location" name="location"><option>Vui lòng chọn...</option><option>Việt Nam/ Hồ Chí Minh/ Quận 4</option><option>Việt Nam/ Hà Nội/ Cầu Giấy</option></select>
+              </div>
+              <div class="field"><label>Địa chỉ</label><input type="text" id="field-address" name="address" placeholder="Nhập địa chỉ của bạn"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Công việc mong muốn <span>&#9650;</span></div>
+          <div class="section-body">
+            <div class="field-grid">
+              <div class="field"><label>Nơi làm việc mong muốn <span class="req">*</span></label>
+                <div class="chip-select" id="field-desiredLocation"><span style="color:#A7AEBE;font-size:13px;">Chọn nơi làm việc</span></div>
+              </div>
+              <div class="field"><label>5 phúc lợi mong muốn</label>
+                <div class="chip-select" id="field-desiredBenefits"><span class="chip">Đào tạo</span><span class="chip">Điện thoại</span><span class="chip">+3</span></div>
+              </div>
+
+              <div class="field unit"><label>Mức lương mong muốn <span class="req">*</span></label><input type="number" id="field-desiredSalary" name="desiredSalary" placeholder="Nhập mức lương"><span>USD/tháng</span></div>
+              <div class="field"><label>Cấp bậc mong muốn <span class="req">*</span></label>
+                <select id="field-desiredLevel" name="desiredLevel"><option>Vui lòng chọn...</option><option>Mới tốt nghiệp</option><option>Nhân viên</option><option>Quản lý</option></select>
+              </div>
+            </div>
+            <label class="checkline"><input type="checkbox" checked> Hiển thị mức lương mong muốn cho nhà tuyển dụng</label>
+            <div class="field-grid">
+              <div class="field"><label>Ngành nghề <span class="req">*</span></label>
+                <select id="field-desiredIndustry" name="desiredIndustry"><option>Vui lòng chọn...</option><option>Kinh doanh Thương mại</option><option>Công nghệ thông tin</option></select>
+              </div>
+              <div class="field"><label>Lĩnh vực <span class="req">*</span></label>
+                <select id="field-desiredField" name="desiredField"><option>Vui lòng chọn...</option><option>Bán lẻ/Bán sỉ</option><option>Phần mềm</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <label class="agree"><input type="checkbox" id="field-agree"> Tôi đồng ý với <a href="#">Quy định bảo mật</a> của nhà tuyển dụng này. <span style="color:#E8442E">(*)</span></label>
+      <a href="page5-success.html" class="btn-submit" id="field-submit">Ứng tuyển</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

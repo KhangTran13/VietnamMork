@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nộp đơn thành công — Mock Flow Page 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #005AFF; --navy: #001744; --orange: #FF7D55; --link-light: #82DCFF; --green: #1E9E52;
+    --text: #333333; --text-gray: #767676; --border: #EAEAF0; --border-light: #F1F1F1;
+    --bg-soft: #F2F6FF; --white: #FFFFFF; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 12px;
+    --radius-pill: 999px; --container: 1200px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.5; color: var(--text); background: var(--white); }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 16px; }
+
+  .announce-bar { background: var(--blue); color: var(--white); font-size: 12.5px; }
+  .announce-bar .container { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 7px 16px; position: relative; text-align: center; }
+  .announce-bar .close-x { position: absolute; right: 16px; opacity: .85; }
+  .link-light { color: var(--link-light); text-decoration: underline; font-weight: 500; }
+
+  header.nav { background: var(--blue); padding: 12px 0; }
+  header.nav .container { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .logo .swirl { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(from 90deg, var(--orange), var(--white), var(--orange)); }
+  .search-bar { flex: 1; min-width: 180px; background: var(--white); border-radius: var(--radius-pill); padding: 4px; display: flex; align-items: center; gap: 6px; }
+  .search-bar .field { flex: 1; display: flex; align-items: center; gap: 8px; padding: 8px 14px; min-width: 0; }
+  .search-bar input { border: none; outline: none; font-size: 14px; font-family: inherit; color: var(--text); width: 100%; background: transparent; }
+  .search-bar .go { width: 34px; height: 34px; border-radius: 50%; background: var(--orange); color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-right { display: flex; align-items: center; gap: 14px; color: var(--white); font-size: 13px; flex-shrink: 0; }
+  .nav-right .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
+
+  .success-hero { background: linear-gradient(180deg, #EAF6EC 0%, #FFFFFF 100%); padding: 48px 0 32px; text-align: center; }
+  .success-hero .check { width: 56px; height: 56px; border-radius: 50%; border: 3px solid var(--green); color: var(--green); font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .success-hero h1 { font-size: 22px; margin: 0 0 10px; }
+  .success-hero p { color: var(--text-gray); font-size: 13.5px; max-width: 640px; margin: 0 auto 4px; }
+  .success-hero .btn-status { display: inline-block; margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 11px 26px; font-weight: 600; font-size: 13.5px; background: var(--white); }
+
+  .analysis-card { max-width: 760px; margin: 24px auto 0; background: var(--white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: 0 4px 16px rgba(0,0,0,.05); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; text-align: left; }
+  .analysis-card .left { display: flex; gap: 14px; }
+  .analysis-card .icon { width: 40px; height: 40px; border-radius: var(--radius-md); background: #FFF0EA; color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .analysis-card h3 { margin: 0 0 6px; font-size: 14.5px; }
+  .analysis-card ul { font-size: 12.5px; color: var(--text-gray); }
+  .analysis-card li { margin-bottom: 2px; }
+  .analysis-card li::before { content: "?  "; color: var(--orange); font-weight: 700; }
+  .btn-analysis { background: var(--orange); color: var(--white); font-weight: 700; font-size: 13px; border-radius: var(--radius-pill); padding: 10px 20px; white-space: nowrap; }
+
+  .more-jobs { padding: 40px 0 48px; }
+  .more-jobs h2 { font-size: 16px; margin: 0 0 18px; }
+  .job-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .job-row { border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 14px 16px; display: flex; gap: 12px; }
+  .job-row .logo-box { width: 42px; height: 42px; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--blue); font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; text-align:center; }
+  .job-row .title { font-weight: 700; font-size: 13.5px; }
+  .job-row .company { color: var(--text-gray); font-size: 12px; margin-top: 3px; }
+  .job-row .salary { color: var(--orange); font-weight: 600; font-size: 12px; margin-top: 6px; }
+  .job-row .loc { color: var(--text-gray); font-size: 12px; margin-top: 2px; }
+
+  footer { background: var(--navy); color: var(--white); padding: 40px 0 0; margin-top: 20px; }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr) 1.2fr; gap: 24px; padding-bottom: 32px; }
+  .footer-col h5 { font-size: 14px; font-weight: 700; margin: 0 0 14px; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { color: #C4CEE8; font-size: 12.5px; }
+  .store-badges { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .store-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.3); border-radius: 6px; padding: 7px 12px; width: fit-content; font-size: 11px; }
+  .social-row { display: flex; gap: 8px; }
+  .social-row .icon-circle { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding: 16px 0; text-align: center; font-size: 11.5px; color: #9AA9CC; }
+
+  @media (max-width: 700px) {
+    .search-bar { display: none; }
+    .job-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .analysis-card { flex-direction: column; align-items: stretch; text-align: center; }
+    .analysis-card .left { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce-bar">
+  <div class="container">
+    <span>&#10003;</span>
+    <span>Hãy bảo vệ chính mình trước các trường hợp mạo danh VietnamWorks.</span>
+    <a href="#" class="link-light">Xem thêm</a>
+    <span class="close-x">&times;</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <a href="page1-home.html" class="logo"><span class="swirl"></span>vietnamworks</a>
+    <div class="search-bar">
+      <div class="field">&#128269;<input type="text" value="software engineer"></div>
+      <span class="go">&#128269;</span>
+    </div>
+    <nav class="nav-right">
+      <span class="icon-btn">&#128276;</span>
+      <span class="icon-btn">&#128100;</span>
+    </nav>
+  </div>
+</header>
+
+<section class="success-hero">
+  <div class="container">
+    <div class="check">&#10003;</div>
+    <h1>Nộp đơn thành công</h1>
+    <p>Bạn đã ứng tuyển vị trí <b>General Manager / Managing Director — Savvy Smart Deals</b> - <b>WOWSUITE SOFTWARE</b>.</p>
+    <p>Chờ nhà tuyển dụng phản hồi nhé!</p>
+    <a href="#" class="btn-status">Xem trạng thái ứng tuyển</a>
+
+    <div class="analysis-card">
+      <div class="left">
+        <div class="icon">&#128200;</div>
+        <div>
+          <h3>Phân tích mức độ cạnh tranh</h3>
+          <ul>
+            <li>Mức lương phổ biến của vị trí này</li>
+            <li>Xếp hạng so với ứng viên khác</li>
+            <li>Đánh giá độ phù hợp</li>
+          </ul>
+        </div>
+      </div>
+      <a href="#" class="btn-analysis">Xem phân tích ngay</a>
+    </div>
+  </div>
+</section>
+
+<section class="more-jobs">
+  <div class="container">
+    <h2>Xem thêm cơ hội khác</h2>
+    <div class="job-grid">
+      <div class="job-row"><div class="logo-box">TRAMS</div><div><div class="title">Chief Operating Officer (COO)</div><div class="company">Công Ty TNHH Trams</div><div class="salary">Thương lượng</div><div class="loc">Hồ Chí Minh</div></div></div>
+      <div class="job-row"><div class="logo-box">MASA</div><div><div class="title">Country General Manager</div><div class="company">CÔNG TY TNHH MASA IWORLD VIỆT NA...</div><div class="salary">Thương lượng</div><div class="loc">Hồ Chí Minh</div></div></div>
+      <div class="job-row"><div class="logo-box">EPIC</div><div><div class="title">Managing Director</div><div class="company">Epicure Catering</div><div class="salary">Thương lượng</div><div class="loc">Hồ Chí Minh</div></div></div>
+      <div class="job-row"><div class="logo-box">EURO</div><div><div class="title">[HCMC - Thu Duc] Managing Director</div><div class="company">Eurofins</div><div class="salary">Thương lượng</div><div class="loc">Hồ Chí Minh</div></div></div>
+      <div class="job-row"><div class="logo-box">SXTM</div><div><div class="title">Tổng Giám Đốc (CEO)</div><div class="company">Công Ty TNHH Sản Xuất - Thương Mại &...</div><div class="salary">5000-25000 $/tháng</div><div class="loc">Hồ Chí Minh</div></div></div>
+      <div class="job-row"><div class="logo-box">VNW</div><div><div class="title">Chief Operating Officer (Coo)</div><div class="company">Vietnamworks' Client</div><div class="salary">Thương lượng</div><div class="loc">Hồ Chí Minh</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>VietnamWorks</h5>
+        <ul>
+          <li><a href="#">Về VietnamWorks</a></li>
+          <li><a href="#">Về VietnamWorks inTECH</a></li>
+          <li><a href="#">Liên Hệ</a></li>
+          <li><a href="#">Hỏi Đáp</a></li>
+          <li><a href="#">Thỏa Thuận Sử Dụng</a></li>
+          <li><a href="#">Quy Định Bảo Mật</a></li>
+          <li><a href="#">Sơ Đồ Trang Web</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Dành cho Nhà tuyển dụng</h5>
+        <ul>
+          <li><a href="#">Đăng tuyển dụng</a></li>
+          <li><a href="#">Tìm kiếm hồ sơ</a></li>
+          <li><a href="#">Báo cáo thị trường tuyển dụng</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Việc làm theo khu vực</h5>
+        <ul>
+          <li><a href="#">Hồ Chí Minh</a></li>
+          <li><a href="#">Hà Nội</a></li>
+          <li><a href="#">Hải Phòng</a></li>
+          <li><a href="#">Đà Nẵng</a></li>
+          <li><a href="#">Cần Thơ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Việc làm theo ngành nghề</h5>
+        <ul>
+          <li><a href="#">Kế toán</a></li>
+          <li><a href="#">Ngân hàng</a></li>
+          <li><a href="#">Phần mềm máy tính</a></li>
+          <li><a href="#">IT Support / Help Desk</a></li>
+          <li><a href="#">Xây dựng</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Ứng dụng di động</h5>
+        <div class="store-badges">
+          <div class="store-badge">&#63743; Tải về trên App Store</div>
+          <div class="store-badge">&#9654; Google Play</div>
+        </div>
+        <div class="social-row">
+          <span class="icon-circle">f</span><span class="icon-circle">in</span><span class="icon-circle">tt</span><span class="icon-circle">yt</span><span class="icon-circle">z</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; VietnamWorks &nbsp;|&nbsp; vietnamworks inTECH &nbsp;|&nbsp; Powered by NAVIGOS</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>VietnamWorks-style Mock Job Portal (Design Reference)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #005AFF;
+    --navy: #001744;
+    --navy-mid: #003699;
+    --orange: #FF7D55;
+    --badge-blue: #48BBFF;
+    --link-light: #82DCFF;
+    --text: #333333;
+    --text-gray: #767676;
+    --border: #EAEAF0;
+    --border-light: #F1F1F1;
+    --bg-soft: #F2F6FF;
+    --bg-card-soft: #EAF1FF;
+    --white: #FFFFFF;
+    --black: #000000;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+    --radius-pill: 999px;
+    --container: 1200px;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--white);
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Buttons / badges ---------- */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 500; font-size: 14px; border-radius: var(--radius-pill); padding: 8px 20px; white-space: nowrap; }
+  .btn-primary { background: var(--orange); color: var(--white); font-weight: 500; }
+  .btn-outline-white { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.6); border-radius: var(--radius-md); font-weight: 600; padding: 14px 16px; }
+  .btn-outline-dark { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 20px; font-weight: 500; }
+  .link-blue { color: var(--blue); font-weight: 500; }
+  .link-light { color: var(--link-light); font-weight: 500; }
+
+  .badge {
+    display: inline-block; background: var(--badge-blue); color: var(--white); font-size: 11px; font-weight: 700;
+    border-radius: var(--radius-sm); padding: 2px 6px; border: 0.8px solid rgba(0,90,255,0.3); letter-spacing: .02em;
+  }
+  .tag-hot { display: inline-flex; align-items: center; gap: 3px; color: var(--orange); font-size: 11px; font-weight: 700; }
+
+  .section-heading { font-size: 22px; font-weight: 600; color: var(--text); margin: 0; display: flex; align-items: center; gap: 10px; }
+  .section-heading.on-dark { color: var(--white); }
+  .section-heading-accent { width: 14px; height: 22px; background: linear-gradient(160deg, var(--orange) 50%, var(--blue) 50%); border-radius: 2px; flex-shrink: 0; }
+  .section-head-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .xem-tat-ca { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: .02em; }
+
+  .dots { display: flex; gap: 6px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+  .dots span.active { background: var(--blue); width: 18px; border-radius: 4px; }
+
+  .icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ---------- Announcement bar ---------- */
+  .announce-bar { background: var(--blue); color: var(--white); font-size: 13px; }
+  .announce-bar .container { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 16px; position: relative; }
+  .announce-bar .close-x { position: absolute; right: 16px; font-size: 16px; opacity: .85; cursor: pointer; }
+
+  /* ---------- Header / hero (shared gradient wrapper) ---------- */
+  .hero-wrap { background: linear-gradient(100deg, var(--navy) 0%, var(--navy-mid) 45%, var(--blue) 100%); }
+
+  header.nav { padding: 14px 0; }
+  header.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 20px; }
+  .logo .swirl { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(from 90deg, var(--orange), var(--blue), var(--orange)); }
+  .logo small { display: block; font-weight: 400; font-size: 10px; letter-spacing: .03em; opacity: .8; }
+  .intech-badge { color: var(--white); font-size: 11px; text-align: right; line-height: 1.3; opacity: .9; }
+  .intech-badge b { display: block; font-size: 13px; }
+  .nav-actions { display: flex; align-items: center; gap: 18px; color: var(--white); font-size: 13px; flex-wrap: wrap; }
+  .nav-actions .pill { border: 1px solid rgba(255,255,255,.5); border-radius: var(--radius-pill); padding: 8px 16px; font-weight: 500; }
+  .nav-actions .icon-btn { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; }
+  .nav-actions .with-icon { display: flex; align-items: center; gap: 6px; }
+
+  .search-bar { background: var(--white); border-radius: var(--radius-pill); padding: 4px; display: flex; align-items: center; gap: 8px; margin: 24px 0 24px; }
+  .search-bar .field { flex: 1; display: flex; align-items: center; gap: 10px; padding: 10px 16px; }
+  .search-bar input { border: none; outline: none; font-size: 16px; font-family: inherit; color: var(--text); width: 100%; }
+  .search-bar input::placeholder { color: #949494; }
+  .search-bar .divider { width: 1px; height: 24px; background: var(--border); }
+  .search-bar .location { display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: var(--text); white-space: nowrap; font-size: 14px; }
+  .search-bar .btn-primary { margin-right: 4px; }
+
+  .hero-banner { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; position: relative; }
+  .hero-banner .art {
+    position: relative; padding: 40px 48px; min-height: 260px; display: flex; flex-direction: column; justify-content: center;
+    background: radial-gradient(ellipse at 75% 30%, #FFE3DC 0%, #FFFFFF 55%),
+                linear-gradient(180deg, transparent 60%, rgba(255,110,90,.08) 100%);
+    overflow: hidden;
+  }
+  .hero-banner .art::before, .hero-banner .art::after {
+    content: ""; position: absolute; bottom: 0; width: 26%; background: linear-gradient(180deg, rgba(255,110,90,.15), rgba(255,80,60,.55));
+    clip-path: polygon(10% 100%, 0 60%, 20% 55%, 25% 35%, 45% 40%, 50% 10%, 65% 30%, 78% 15%, 100% 45%, 100% 100%);
+  }
+  .hero-banner .art::before { left: -2%; height: 85%; }
+  .hero-banner .art::after { right: -4%; height: 100%; }
+  .hero-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 20px; color: var(--orange); z-index: 1; margin-bottom: 18px; }
+  .hero-brand .mark { width: 26px; height: 26px; background: var(--orange); clip-path: polygon(50% 0, 100% 100%, 50% 70%, 0 100%); }
+  .hero-copy { z-index: 1; max-width: 480px; }
+  .hero-copy .quote-mark { font-size: 42px; color: #FBC9C0; font-weight: 800; line-height: .5; }
+  .hero-copy p { margin: 2px 0; font-size: 26px; font-weight: 700; color: var(--text); line-height: 1.25; }
+  .hero-copy p.accent { color: var(--orange); }
+  .hero-follow { z-index: 1; display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .hero-follow span { font-weight: 700; font-size: 14px; color: var(--text); }
+  .hero-follow .line { flex: 1; max-width: 60px; height: 1px; background: #CFCFCF; }
+  .qr-box { width: 76px; height: 76px; border: 1.5px solid var(--orange); border-radius: 8px; margin-top: 10px; background:
+    repeating-linear-gradient(90deg, #111 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(0deg, #111 0 4px, transparent 4px 8px);
+    background-blend-mode: multiply; background-color: #fff; position: relative; z-index: 1; }
+
+  .hero-employer-bar { background: var(--navy); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; flex-wrap: wrap; }
+  .hero-employer-bar .left { display: flex; align-items: center; gap: 14px; }
+  .hero-employer-bar .logo-chip { width: 46px; height: 46px; border-radius: var(--radius-sm); background: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; color: var(--orange); }
+  .hero-employer-bar .title { color: var(--white); font-weight: 700; font-size: 15px; }
+  .hero-employer-bar .subtitle { color: #B9C6E8; font-size: 11px; letter-spacing: .03em; }
+
+  /* ---------- Top companies ---------- */
+  .companies-section { background: var(--blue); padding: 32px 0 48px; }
+  .company-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .company-card { background: var(--white); border: 0.8px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; gap: 16px; }
+  .company-card .logo-box { width: 64px; height: 64px; border-radius: var(--radius-sm); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; background: var(--bg-soft); color: var(--blue); }
+  .company-card .name { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+
+  /* ---------- Generic light section ---------- */
+  .section { padding: 48px 0; }
+  .section.soft { background: var(--bg-soft); }
+
+  .job-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .job-card { background: var(--white); border: 0.8px solid var(--border-light); border-radius: var(--radius-lg); padding: 16px 12px; display: flex; gap: 12px; box-shadow: var(--shadow-card); position: relative; }
+  .job-card .logo-box { width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--bg-soft); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: var(--blue); }
+  .job-card .body { flex: 1; min-width: 0; }
+  .job-card .title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .job-card .title { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .job-card .company { color: var(--text-gray); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+  .job-card .salary { color: var(--orange); font-weight: 600; font-size: 13px; margin-top: 8px; }
+  .job-card .loc { color: var(--text-gray); font-size: 12.5px; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+
+  /* dark variant */
+  .job-card.dark { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.12); }
+  .job-card.dark .title, .job-card.dark .company { color: var(--white); }
+  .job-card.dark .company { opacity: .7; }
+  .job-card.dark .loc { color: #B9C6E8; }
+  .job-card.dark .salary { display: flex; align-items: center; gap: 6px; color: #E6EDFF; font-weight: 500; }
+  .job-card.dark .logo-box { background: rgba(255,255,255,.9); }
+
+  /* ---------- Categories ---------- */
+  .category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 20px; }
+  .category-card { background: var(--bg-soft); border-radius: var(--radius-lg); padding: 28px 16px; text-align: center; }
+  .category-card .circle { width: 64px; height: 64px; border-radius: 50%; background: #D9E6FF; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; }
+  .category-card .circle .icon { width: 28px; height: 28px; }
+  .category-card .label { font-weight: 700; font-size: 13px; letter-spacing: .02em; }
+  .category-card .count { color: var(--text-gray); font-size: 12.5px; margin-top: 8px; }
+
+  /* ---------- Space section ---------- */
+  .space-section { background: radial-gradient(circle at 88% 20%, #3a3a3a, #000 55%); padding: 56px 0; position: relative; overflow: hidden; }
+  .space-section::after {
+    content: ""; position: absolute; top: -20%; right: -10%; width: 480px; height: 480px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #cfd6da, #6b7176 55%, #1a1c1e 80%); box-shadow: 0 0 120px rgba(180,190,200,.25);
+  }
+  .space-section .container { position: relative; z-index: 1; }
+  .space-section .job-grid { grid-template-columns: repeat(3, 1fr); }
+  .space-section .actions { text-align: center; margin-top: 28px; }
+
+  /* ---------- Employer spotlight (Orion-style) ---------- */
+  .spotlight-banner { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(120deg, #C4172A 0%, #E8442E 55%, #F2683A 100%); min-height: 260px; }
+  .spotlight-banner .headline { padding: 32px 40px 90px; color: var(--white); font-weight: 800; font-size: 34px; line-height: 1.15; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+  .spotlight-card { position: absolute; left: 24px; right: 24px; bottom: -0px; background: var(--white); border-radius: var(--radius-md); padding: 18px 24px; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 8px 24px rgba(0,0,0,.15); transform: translateY(60%); }
+  .spotlight-wrap { margin-bottom: 70px; }
+  .spotlight-card .logo-circle { width: 48px; height: 48px; border-radius: 50%; background: #C4172A; color: var(--white); font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; text-align: center; }
+  .spotlight-card .name { font-weight: 700; font-size: 16px; }
+  .spotlight-card .tagline { color: var(--orange); font-style: italic; font-size: 12.5px; font-weight: 600; margin: 2px 0 6px; }
+  .spotlight-card .desc { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
+  .spotlight-card .qr-mini { width: 44px; height: 44px; border-radius: 6px; flex-shrink: 0; background:
+    repeating-linear-gradient(90deg, #111 0 3px, transparent 3px 6px),
+    repeating-linear-gradient(0deg, #111 0 3px, transparent 3px 6px); background-blend-mode: multiply; background-color: #fff; }
+
+  /* ---------- WowCV promo ---------- */
+  .promo-banner { border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(120deg, #1746D6 0%, var(--blue) 60%, #3FA0FF 100%); position: relative; display: flex; align-items: center; gap: 32px; padding: 40px; }
+  .promo-banner::before { content: ""; position: absolute; left: 18%; top: -20%; width: 260px; height: 260px; background: var(--orange); border-radius: 50%; opacity: .55; filter: blur(2px); }
+  .promo-banner .copy { position: relative; z-index: 1; color: var(--white); max-width: 480px; }
+  .promo-banner .copy h3 { font-size: 26px; font-weight: 800; margin: 0 0 12px; line-height: 1.3; }
+  .promo-banner .copy h3 .accent { color: #BFE0FF; }
+  .promo-banner .copy p { font-size: 14px; opacity: .95; margin: 0 0 18px; }
+  .promo-banner .mock { position: relative; z-index: 1; flex: 1; display: flex; justify-content: center; gap: -20px; }
+  .cv-card { width: 130px; height: 175px; background: var(--white); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 12px; }
+  .cv-card:nth-child(2) { margin-left: -30px; margin-top: 20px; }
+  .cv-card .cv-line { height: 6px; background: #E4E9F5; border-radius: 3px; margin-bottom: 6px; }
+  .cv-card .cv-line.w60 { width: 60%; } .cv-card .cv-line.w40 { width: 40%; }
+  .cv-card .cv-avatar { width: 28px; height: 28px; border-radius: 50%; background: #C7D6F5; margin-bottom: 10px; }
+
+  /* ---------- info cards ---------- */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .info-card { background: var(--bg-card-soft); border-radius: var(--radius-lg); padding: 28px; display: flex; justify-content: space-between; gap: 16px; }
+  .info-card h4 { margin: 0 0 10px; font-size: 17px; font-weight: 700; }
+  .info-card p { margin: 0 0 10px; font-size: 13px; color: var(--text-gray); max-width: 380px; }
+  .info-card .icon-lg { width: 56px; height: 56px; flex-shrink: 0; opacity: .8; }
+
+  /* ---------- press ---------- */
+  .press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .press-card { border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: flex-start; gap: 16px; }
+  .press-card .press-logo { width: 60px; height: 32px; border-radius: 4px; background: var(--bg-soft); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 9px; color: var(--blue); text-align: center; }
+  .press-card .headline { font-weight: 600; font-size: 13.5px; line-height: 1.4; }
+
+  /* ---------- testimonials ---------- */
+  .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+  .testimonial-card { background: var(--bg-soft); border-radius: var(--radius-lg); padding: 28px; position: relative; }
+  .testimonial-card .quote-mark { font-size: 40px; color: #C7D6F5; font-weight: 800; line-height: .5; }
+  .testimonial-card p { font-size: 13.5px; color: var(--text); line-height: 1.6; margin: 10px 0 18px; }
+  .testimonial-card .author { text-align: right; font-weight: 700; font-size: 13px; }
+
+  /* ---------- articles ---------- */
+  .article-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+  .article-card .thumb { height: 120px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--blue), var(--navy)); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 800; font-size: 11px; text-align: center; padding: 10px; }
+  .article-card .thumb.purple { background: linear-gradient(135deg, #6C3FD6, #1A0E3C); }
+  .article-card .art-title { font-weight: 700; font-size: 13.5px; margin: 12px 0 6px; line-height: 1.4; }
+  .article-card .art-excerpt { color: var(--text-gray); font-size: 12.5px; line-height: 1.5; }
+  .article-card .art-tag { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--orange); }
+  .article-card .art-tag i { width: 8px; height: 8px; background: var(--orange); display: inline-block; }
+
+  /* ---------- keyword cloud ---------- */
+  .keyword-box { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
+  .keyword-box a { display: inline-block; color: var(--text-gray); font-size: 13px; margin: 0 14px 12px 0; }
+  .legal-text { color: #9A9A9A; font-size: 11.5px; text-align: center; margin-top: 16px; line-height: 1.6; }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--navy); color: var(--white); padding: 48px 0 0; }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr) 1.2fr; gap: 24px; padding-bottom: 40px; }
+  .footer-col h5 { font-size: 15px; font-weight: 700; margin: 0 0 16px; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a { color: #C4CEE8; font-size: 13px; }
+  .footer-col .see-all { color: var(--link-light); font-weight: 600; }
+  .store-badges { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .store-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.3); border-radius: 6px; padding: 8px 14px; width: fit-content; font-size: 12px; }
+  .store-badge b { display: block; font-size: 13px; }
+  .cert-badge { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .cert-badge .box { width: 60px; height: 32px; border: 1px solid rgba(255,255,255,.3); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #FF6B6B; text-align: center; }
+  .social-row { display: flex; gap: 10px; }
+  .social-row .icon-circle { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding: 18px 0; text-align: center; font-size: 12px; color: #9AA9CC; }
+  .footer-legal { border-top: 1px solid rgba(255,255,255,.12); padding: 16px 0; display: flex; align-items: center; justify-content: center; gap: 24px; font-size: 12px; color: #9AA9CC; flex-wrap: wrap; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .company-grid, .job-grid, .article-grid { grid-template-columns: repeat(2, 1fr); }
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
+    .space-section .job-grid, .press-grid { grid-template-columns: repeat(2, 1fr); }
+    .info-grid, .testimonial-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .promo-banner { flex-direction: column; text-align: center; }
+    .promo-banner .copy { max-width: 100%; }
+    .nav-actions { justify-content: flex-start; width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .company-grid, .job-grid, .category-grid, .article-grid, .press-grid, .footer-grid { grid-template-columns: 1fr; }
+    .hero-copy p { font-size: 20px; }
+    .search-bar { flex-wrap: wrap; border-radius: 16px; }
+    .search-bar .divider { display: none; }
+    .spotlight-banner .headline { font-size: 24px; padding: 24px 20px 110px; }
+    .spotlight-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Announcement bar -->
+<div class="announce-bar">
+  <div class="container">
+    <span>&#10003;</span>
+    <span>Hãy bảo vệ chính mình trước các trường hợp mạo danh VietnamWorks.</span>
+    <a href="#" class="link-light" style="text-decoration: underline;">Xem thêm</a>
+    <span class="close-x">&times;</span>
+  </div>
+</div>
+
+<div class="hero-wrap">
+  <!-- Nav -->
+  <header class="nav">
+    <div class="container">
+      <a href="#" class="logo">
+        <span class="swirl"></span>
+        <span>vietnamworks
+          <small>Empower growth</small>
+        </span>
+      </a>
+      <div class="intech-badge">vietnamworks<br><b>inTECH</b></div>
+      <nav class="nav-actions">
+        <span class="with-icon">&#9776; Tất cả danh mục</span>
+        <a href="#" class="pill">Dành cho Nhà tuyển dụng</a>
+        <span>VI</span>
+        <span class="icon-btn">&#128276;</span>
+        <span class="with-icon">&#128100; Đăng nhập</span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Search bar -->
+    <div class="search-bar">
+      <div class="field">
+        <span>&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Tìm kiếm việc làm, công ty, kỹ năng">
+      </div>
+      <div class="divider"></div>
+      <div class="location">&#128205; Tất cả địa điểm</div>
+      <button class="btn btn-primary" id="searchButton">Tìm kiếm</button>
+    </div>
+
+    <!-- Hero banner -->
+    <div class="hero-banner">
+      <div class="art">
+        <div class="hero-brand"><span class="mark"></span> VINSMART FUTURE</div>
+        <div class="hero-copy">
+          <span class="quote-mark">&#8220;</span>
+          <p>Vì một cuộc sống tốt đẹp hơn</p>
+          <p>cho mọi người thông qua</p>
+          <p class="accent">Ứng dụng công nghệ và</p>
+          <p class="accent">Trải nghiệm số ưu việt</p>
+        </div>
+        <div class="hero-follow">
+          <span>Follow us now!</span>
+          <span class="line"></span>
+        </div>
+        <div class="qr-box"></div>
+      </div>
+      <div class="hero-employer-bar">
+        <div class="left">
+          <div class="logo-chip">VSF</div>
+          <div>
+            <div class="title">Join Us Now</div>
+            <div class="subtitle">CÔNG TY CỔ PHẦN VINSMART FUTURE</div>
+          </div>
+        </div>
+        <button class="btn btn-outline-white">Khám Phá Ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top companies -->
+  <section class="companies-section">
+    <div class="container">
+      <h2 class="section-heading on-dark" style="margin-bottom:20px;">Các Công Ty Hàng Đầu</h2>
+      <div class="company-grid">
+        <div class="company-card">
+          <div class="logo-box">SEEV</div>
+          <div><div class="name">SEI (VIỆT NAM)</div><span class="badge">VIỆC MỚI</span></div>
+        </div>
+        <div class="company-card">
+          <div class="logo-box">VNPT</div>
+          <div><div class="name">VNPT</div><span class="badge">VIỆC MỚI</span></div>
+        </div>
+        <div class="company-card">
+          <div class="logo-box">VPB</div>
+          <div><div class="name">VPBANK</div><span class="badge">VIỆC MỚI</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Best jobs -->
+<section class="section">
+  <div class="container">
+    <div class="section-head-row">
+      <h2 class="section-heading"><span class="section-heading-accent"></span>Việc Làm Tốt Nhất</h2>
+      <a href="#" class="xem-tat-ca">XEM TẤT CẢ</a>
+    </div>
+    <div class="job-grid">
+      <div class="job-card"><div class="logo-box">VHM</div><div class="body"><div class="title-row"><span class="title">Trưởng Phòng Kinh D...</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">Công ty Cổ Phần Vinhomes</div><div class="salary">25tr-400tr đ/tháng</div><div class="loc">&#128205; Hồ Chí Minh</div></div></div>
+      <div class="job-card"><div class="logo-box">OM</div><div class="body"><div class="title-row"><span class="title">Product Director (HN/...)</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">One Mount</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">NAB</div><div class="body"><div class="title-row"><span class="title">Network Engineer - T...</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">NAB Innovation Centre Vietn...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">VSM</div><div class="body"><div class="title-row"><span class="title">Devops Engineer / Sy...</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">CÔNG TY CỔ PHẦN VINSMA...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">MAX</div><div class="body"><div class="title-row"><span class="title">Chuyên Viên Digital A...</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">Văn phòng đại diện MAX BIO...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội, Thái Nguyên</div></div></div>
+      <div class="job-card"><div class="logo-box">VF</div><div class="body"><div class="title-row"><span class="title">Senior Buyer</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">Vinfast Global</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">GSM</div><div class="body"><div class="title-row"><span class="title">Training, Learing & De...</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">GSM</div><div class="salary">$800-1,800/tháng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">VS</div><div class="body"><div class="title-row"><span class="title">Academic Officer (ES...)</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">Hệ thống Giáo dục Vinschool</div><div class="salary">20tr-40tr đ/tháng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">SKE</div><div class="body"><div class="title-row"><span class="title">Quality Assurance (H...)</span><span class="tag-hot">&#128293;Hot</span></div><div class="company">CÔNG TY TNHH SKECHERS ...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hải Phòng, Ninh Bình, Thanh...</div></div></div>
+    </div>
+    <div class="dots"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section soft">
+  <div class="container">
+    <h2 class="section-heading" style="margin-bottom:20px;">Ngành Nghề Trọng Điểm</h2>
+    <div class="category-grid">
+      <div class="category-card"><div class="circle">&#128188;</div><div class="label">KINH DOANH</div><div class="count">1484 Việc Làm</div></div>
+      <div class="category-card"><div class="circle">&#128203;</div><div class="label">KẾ TOÁN / KIỂM TOÁN</div><div class="count">1268 Việc Làm</div></div>
+      <div class="category-card"><div class="circle">&#127959;</div><div class="label">KIẾN TRÚC / XÂY DỰNG</div><div class="count">1018 Việc Làm</div></div>
+      <div class="category-card"><div class="circle">&#127970;</div><div class="label">SẢN XUẤT</div><div class="count">882 Việc Làm</div></div>
+      <div class="category-card"><div class="circle">&#128187;</div><div class="label">CÔNG NGHỆ THÔNG TIN / VIỄN THÔNG</div><div class="count">786 Việc Làm</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Space themed jobs -->
+<section class="space-section">
+  <div class="container">
+    <h2 class="section-heading on-dark" style="margin-bottom:28px; font-size:28px;">Việc trên nghìn đô phù hợp với bạn</h2>
+    <div class="job-grid">
+      <div class="job-card dark"><div class="logo-box">TCB</div><div class="body"><div class="company">Techcombank</div><div class="title">Expert, Operational Risk Management (Techcom Life)</div><div class="loc">Hà Nội</div><div class="salary">&#128179; Thương lượng</div></div></div>
+      <div class="job-card dark"><div class="logo-box">ACB</div><div class="body"><div class="company">Ngân Hàng TMCP Á Châu (ACB)</div><div class="title">ACB Giám Đốc/ Phó Giám Đốc Chi Nhánh & Phòng Giao Dịch</div><div class="loc">Hồ Chí Minh</div><div class="salary">&#128179; Thương lượng</div></div></div>
+      <div class="job-card dark"><div class="logo-box">ATX</div><div class="body"><div class="company">Autonics Vina</div><div class="title">Assistant Sales Manager – Industrial Automation</div><div class="loc">Hà Nội</div><div class="salary">&#128179; Thương lượng</div></div></div>
+      <div class="job-card dark"><div class="logo-box">VCB</div><div class="body"><div class="company">Ngân Hàng TMCP Ngoại Thương Việt Nam -...</div><div class="title">Chuyên Viên Định Giá Tài Sản Tại Bắc Giang (Làm Việc Tại VCB Bắ...)</div><div class="loc">Hưng Yên</div><div class="salary">&#128179; Thương lượng</div></div></div>
+      <div class="job-card dark"><div class="logo-box">BIC</div><div class="body"><div class="company">Tổng Công Ty Bảo Hiểm BIDV (BIC)</div><div class="title">Phó Giám Đốc Công Ty Thành Viên</div><div class="loc">Hà Nội, Quảng Ninh, Đồng Nai</div><div class="salary">&#128179; Thương lượng</div></div></div>
+      <div class="job-card dark"><div class="logo-box">BML</div><div class="body"><div class="company">BIDV MetLife</div><div class="title">Core System Business Analyst Lead</div><div class="loc">Hà Nội</div><div class="salary">&#128179; Thương lượng</div></div></div>
+    </div>
+    <div class="actions"><button class="btn btn-outline-white">Xem tất cả</button></div>
+  </div>
+</section>
+
+<!-- Employer spotlight -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-heading" style="margin-bottom:20px;">Nhà Tuyển Dụng Nổi Bật</h2>
+    <div class="spotlight-wrap">
+      <div class="spotlight-banner">
+        <div class="headline">&#10047; TUYỂN DỤNG &#10047;<br>ORION VIỆT NAM</div>
+        <div class="spotlight-card">
+          <div class="logo-circle">ORION</div>
+          <div style="flex:1;">
+            <div class="name">Orion Food Vina Co,. Ltd</div>
+            <div class="tagline">Your Career Companion</div>
+            <div class="desc">As a trusted market leader in the Vietnam's confectionery industry, Orion offers more than just a job — it's a place to grow. You'll be rewarded with a competitive salary and benefits that truly reflect your value, while gaining access to expert-led training programs designed to sharpen your skills.... <a href="#" class="link-blue">Xem thêm</a></div>
+          </div>
+          <div class="qr-mini"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dots"><span></span><span class="active"></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- Finance jobs -->
+<section class="section soft">
+  <div class="container">
+    <div class="section-head-row">
+      <h2 class="section-heading">Việc Làm Nổi Bật <span style="color:var(--blue)">Tài Chính Đầu Tư</span></h2>
+      <a href="#" class="xem-tat-ca">XEM TẤT CẢ</a>
+    </div>
+    <div class="job-grid">
+      <div class="job-card"><div class="logo-box">MSN</div><div class="body"><div class="title">Brand Building Finance ...</div><div class="company">Công Ty Cổ Phần Hàng Tiêu Dù...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hồ Chí Minh</div></div></div>
+      <div class="job-card"><div class="logo-box">VIN</div><div class="body"><div class="title">Chuyên Viên Tài Chính</div><div class="company">Công Ty TNHH Khoáng Sản Vin...</div><div class="salary">$18tr-25tr/tháng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">EIM</div><div class="body"><div class="title">[HN/HCM] Chuyên Viên ...</div><div class="company">CÔNG TY CỔ PHẦN TẬP ĐOÀN ...</div><div class="salary">Tới 150tr đ/tháng</div><div class="loc">&#128205; Hà Nội, Hồ Chí Minh</div></div></div>
+      <div class="job-card"><div class="logo-box">MSB</div><div class="body"><div class="title">Chuyên Viên Cao Cấp Ki...</div><div class="company">Ngân Hàng Thương Mại Cổ Phầ...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">VNP</div><div class="body"><div class="title">Chuyên Viên Phát Triển ...</div><div class="company">Công Ty Dịch Vụ Số Bưu Điện – ...</div><div class="salary">Từ $20tr/tháng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">PVC</div><div class="body"><div class="title">Chuyên Gia Cao Cấp Ph...</div><div class="company">Ngân Hàng TMCP Đại Chúng Vi...</div><div class="salary">$3,000-5,000/tháng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+      <div class="job-card"><div class="logo-box">SSI</div><div class="body"><div class="title">Chuyên Viên Phân Tích ...</div><div class="company">Công Ty Cổ Phần Chứng Khoán ...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hồ Chí Minh</div></div></div>
+      <div class="job-card"><div class="logo-box">TCB</div><div class="body"><div class="title">Chuyên Viên Cao Cấp Q...</div><div class="company">Techcombank</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội, Bình Dương, Hồ Chí Minh</div></div></div>
+      <div class="job-card"><div class="logo-box">MB</div><div class="body"><div class="title">Chuyên viên cao cấp - P...</div><div class="company">NGÂN HÀNG TMCP QUÂN ĐỘI ...</div><div class="salary">Thương lượng</div><div class="loc">&#128205; Hà Nội</div></div></div>
+    </div>
+    <div class="dots"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- WowCV promo -->
+<section class="section">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="copy">
+        <h3>Tạo Ấn Tượng Với Nhà Tuyển Dụng Cùng <span class="accent">VietnamWorks WowCV</span></h3>
+        <p>Tạo mẫu CV nhanh chóng và miễn phí, để nhà tuyển dụng phải <b>"Wow!"</b> ngay khi nhìn thấy CV của bạn.</p>
+        <button class="btn btn-primary">Tạo CV ngay</button>
+      </div>
+      <div class="mock">
+        <div class="cv-card"><div class="cv-avatar"></div><div class="cv-line w60"></div><div class="cv-line w40"></div><div class="cv-line"></div><div class="cv-line w60"></div><div class="cv-line w40"></div></div>
+        <div class="cv-card"><div class="cv-avatar"></div><div class="cv-line w60"></div><div class="cv-line w40"></div><div class="cv-line"></div><div class="cv-line w60"></div><div class="cv-line w40"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Info cards -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-card">
+        <div>
+          <h4>Nhân Số Học</h4>
+          <p>Công cụ tham khảo nhằm giúp bạn gợi ý nghề nghiệp phù hợp dựa trên những điểm mạnh và điểm yếu của những con số liên quan đến bạn. Dựa trên thông tin: Họ tên, ngày tháng năm sinh của bạn, Nhân số học sẽ phân tích và tạo lập cho bạn biểu đồ sự nghiệp hoàn chỉnh.</p>
+          <a href="#" class="link-blue">Xem thêm</a>
+        </div>
+        <div class="icon-lg">&#128302;</div>
+      </div>
+      <div class="info-card">
+        <div>
+          <h4>Lộ Trình Sự Nghiệp:</h4>
+          <p>VietnamWorks giúp bạn đối chiếu được bản thân tháo gỡ lấn cấn chuyển lộ trình thăng tiến. Cùng thoát khỏi mê cung sự nghiệp bằng cách tham khảo lộ trình thăng tiến của tất cả các ngành nghề, bạn nhé!</p>
+          <a href="#" class="link-blue">Xem thêm</a>
+        </div>
+        <div class="icon-lg">&#128200;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Press -->
+<section class="section soft">
+  <div class="container">
+    <h2 class="section-heading" style="margin-bottom:8px;">Báo chí nói gì về VietnamWorks</h2>
+    <div class="press-grid">
+      <div class="press-card"><div class="press-logo">DÂN TRÍ</div><div class="headline">Chiến dịch Empower Growth của VietnamWorks nhận nhiều giải thưởng quốc tế</div></div>
+      <div class="press-card"><div class="press-logo">VnExpress</div><div class="headline">VietnamWorks: 64% doanh nghiệp thưởng Tết hơn một tháng lương</div></div>
+      <div class="press-card"><div class="press-logo">CafeF</div><div class="headline">Bước chuyển mình sau 20 năm của trang tuyển dụng hàng đầu Việt Nam</div></div>
+    </div>
+    <div class="dots"><span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-heading" style="margin-bottom:8px;">Ứng viên nói gì về VietnamWorks</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <span class="quote-mark">&#8220;</span>
+        <p>Điều hài lòng của tôi về VietnamWorks là việc thông báo việc làm mới qua email cho người dùng thường xuyên. Điều này giúp cho tôi có cơ hội được tìm hiểu các công việc tuyển dụng phù hợp với kinh nghiệm của mình. Tất nhiên là giao diện của Vietnamworks rất đẹp, dễ sử dụng và tiện lợi giúp tôi có thể tìm kiếm công việc phù hợp một cách nhanh chóng. Mọi thông tin, ngành nghề, khu vực đều được cập nhật rất bài bản. Tôi rất hài lòng về sự trải nghiệm này.</p>
+        <div class="author">Ms. Trúc Năng</div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">&#8220;</span>
+        <p>VietnamWorks có nhiều công việc với những tính chất ngành nghề phong phú. Phản ánh chính xác và đầy đủ nhu cầu tìm việc làm trong xã hội hiện nay và nhu cầu tuyển dụng của các doanh nghiệp. Giao diện trình bày dễ hiểu. Bên cạnh đó, VietnamWorks còn có nhiều nội dung, bài viết phong phú, phản ánh thực tế nhu cầu tuyển dụng, công việc trong giai đoạn hiện nay.</p>
+        <div class="author">Mr. Quang Tùng</div>
+      </div>
+    </div>
+    <div class="dots">
+      <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Articles -->
+<section class="section soft">
+  <div class="container">
+    <div class="section-head-row">
+      <h2 class="section-heading">Tư Vấn Nghề Nghiệp Từ HR Insider</h2>
+      <a href="#" class="xem-tat-ca">XEM TẤT CẢ</a>
+    </div>
+    <div class="article-grid">
+      <div class="article-card">
+        <div class="thumb">BÁO CÁO THỊ TRƯỜNG<br>TUYỂN DỤNG QUÝ 2/2026</div>
+        <div class="art-title">VietnamWorks phát hành Báo cáo Thị trường Tuyển dụng Q2/2026: Hà Nội dẫn đầu tăn...</div>
+        <div class="art-excerpt">Quý 2/2026, thị trường tuyển dụng Việt Nam tiếp tục tăng trưởng với chỉ số tuyển dụng toàn quốc đạt 125.5 điểm (+25.5% so với Q2/2024), tro...</div>
+        <div class="art-tag"><i></i>Báo Cáo Thị Trường</div>
+      </div>
+      <div class="article-card">
+        <div class="thumb">BÁO CÁO XU HƯỚNG<br>NGÀNH KẾ TOÁN – KIỂM TOÁN 2026</div>
+        <div class="art-title">Từ Kế toán viên đến CFO: Con đường phát triển sự nghiệp Kế toán – Kiểm toán trong thời đ...</div>
+        <div class="art-excerpt">Nếu Kỳ 1 của "VietnamWorks_Báo cáo xu hướng ngành Kế toán – Kiểm toán 2026" phản ánh những thách thức của thị trường lao động trước tác động ...</div>
+        <div class="art-tag"><i></i>Báo Cáo Thị Trường</div>
+      </div>
+      <div class="article-card">
+        <div class="thumb purple">JOB POST AI</div>
+        <div class="art-title">[Dành cho Nhà tuyển dụng] VietnamWorks giới thiệu Job Post AI: Giải pháp giúp HR đă...</div>
+        <div class="art-excerpt">Tháng 4.2026 vừa qua, VietnamWorks chính thức ra mắt giải pháp đăng tuyển thông minh Job Post AI, tích hợp AI trực tiếp vào từng tin đăng tuyể...</div>
+        <div class="art-tag"><i></i>Tuyển Dụng Hiệu Quả</div>
+      </div>
+      <div class="article-card">
+        <div class="thumb">BÁO CÁO XU HƯỚNG<br>NGÀNH KẾ TOÁN – KIỂM TOÁN 2026</div>
+        <div class="art-title">Ngành Kế toán & Kiểm toán 2026 tiếp tục "khát" nhân lực, trong khi khoảng cách giữa kỳ vọ...</div>
+        <div class="art-excerpt">Theo VietnamWorks _ Báo cáo xu hướng ngành Kế toán – Kiểm toán 2026 _ Kỳ 1, nhu cầu tuyển dụng ngành Kế toán & Kiểm toán v...</div>
+        <div class="art-tag"><i></i>Báo Cáo Thị Trường</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Keyword cloud + legal -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="keyword-box">
+      <a href="#">tìm việc làm</a><a href="#">tuyển dụng</a><a href="#">thần số học</a><a href="#">cv xin việc</a><a href="#">mẫu cv</a>
+      <a href="#">việc làm bắc giang</a><a href="#">việc làm hưng yên</a><a href="#">việc làm bà rịa vũng tàu</a><a href="#">việc làm quảng ngãi</a><a href="#">việc làm nam định</a><a href="#">việc làm huế</a>
+      <a href="#">việc làm thái bình</a><a href="#">việc làm ninh bình</a><a href="#">việc làm hà tĩnh</a><a href="#">việc làm tphcm</a><a href="#">việc làm đà nẵng</a><a href="#">việc làm hải phòng</a><a href="#">việc làm cần thơ</a><a href="#">việc làm bình dương</a><a href="#">tìm việc làm tại hà nội</a>
+      <a href="#">việc làm nhân viên kinh doanh</a><a href="#">tuyển dụng kế toán trưởng</a><a href="#">việc làm sales</a><a href="#">tuyển dụng marketing</a><a href="#">tuyển dụng content marketing</a><a href="#">tuyển dụng nhân sự</a><a href="#">tuyển dụng kế toán tổng hợp</a>
+      <a href="#">tuyển dụng kiểm toán</a><a href="#">tuyển dụng truyền thông</a><a href="#">việc làm qa qc</a><a href="#">tuyển dụng brand marketing</a><a href="#">tuyển dụng hr manager</a><a href="#">việc làm ngành may</a><a href="#">tuyển dụng marketing manager</a>
+      <a href="#">việc làm giáo dục</a><a href="#">việc làm partime</a><a href="#">tuyển dụng nhân viên thiết kế</a><a href="#">tuyển dụng tài chính</a><a href="#">việc làm tự động hóa</a><a href="#">việc làm báo chí</a><a href="#">tuyển dụng kiểm toán ngân hàng</a><a href="#">việc làm in ấn</a>
+      <a href="#">data analyst</a>
+      <div class="legal-text">Công ty CP Navigos Group Việt Nam. Địa chỉ: Tầng 20, tòa nhà e.town Central, 11 Đoàn Văn Bơ, Phường 13, Quận 4, TP. HCM. Giấy CNĐKKDN số 0304836029 do Sở Kế Hoạch và Đầu Tư Thành phố Hồ Chí Minh cấp lần đầu ngày 11/12/2006</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>VietnamWorks</h5>
+        <ul>
+          <li><a href="#">Về VietnamWorks</a></li>
+          <li><a href="#">Về VietnamWorks inTECH</a></li>
+          <li><a href="#">Liên Hệ</a></li>
+          <li><a href="#">Hỏi Đáp</a></li>
+          <li><a href="#">Thỏa Thuận Sử Dụng</a></li>
+          <li><a href="#">Quy Định Bảo Mật</a></li>
+          <li><a href="#">Quy Chế Hoạt Động Sàn Giao Dịch Thương Mại Điện Tử VietnamWorks</a></li>
+          <li><a href="#">Sơ Đồ Trang Web</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Dành cho Nhà tuyển dụng</h5>
+        <ul>
+          <li><a href="#">Đăng tuyển dụng</a></li>
+          <li><a href="#">Tìm kiếm hồ sơ</a></li>
+          <li><a href="#">Báo cáo thị trường tuyển dụng</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Việc làm theo khu vực</h5>
+        <ul>
+          <li><a href="#">Hồ Chí Minh</a></li>
+          <li><a href="#">Hà Nội</a></li>
+          <li><a href="#">Hải Phòng</a></li>
+          <li><a href="#">Đà Nẵng</a></li>
+          <li><a href="#">Cần Thơ</a></li>
+        </ul>
+        <a href="#" class="see-all">Xem tất cả khu vực &rsaquo;</a>
+      </div>
+      <div class="footer-col">
+        <h5>Việc làm theo ngành nghề</h5>
+        <ul>
+          <li><a href="#">Kế toán</a></li>
+          <li><a href="#">Ngân hàng</a></li>
+          <li><a href="#">Phần mềm máy tính</a></li>
+          <li><a href="#">IT Support / Help Desk</a></li>
+          <li><a href="#">Xây dựng</a></li>
+        </ul>
+        <a href="#" class="see-all">Tìm việc làm &rsaquo;</a>
+      </div>
+      <div class="footer-col">
+        <h5>Ứng dụng di động</h5>
+        <div class="store-badges">
+          <div class="store-badge">&#63743; <span>Tải về trên<b>App Store</b></span></div>
+          <div class="store-badge">&#9654; <span>TẢI NỘI DUNG TRÊN<b>Google Play</b></span></div>
+        </div>
+        <div style="font-size:12px;color:#C4CEE8;margin-bottom:8px;">Chứng nhận bởi</div>
+        <div class="cert-badge"><div class="box">ĐÃ ĐĂNG KÝ<br>BỘ CÔNG THƯƠNG</div></div>
+        <div style="font-size:12px;color:#C4CEE8;margin-bottom:8px;">Theo dõi Vietnamworks trên</div>
+        <div class="social-row">
+          <span class="icon-circle">f</span><span class="icon-circle">in</span><span class="icon-circle">tt</span><span class="icon-circle">yt</span><span class="icon-circle">z</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Copyright &copy; Công Ty Cổ Phần Navigos Group Việt Nam</span>
+      <span>Tầng 20, tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Phường 13, Quận 4, TP.HCM, Việt Nam</span>
+    </div>
+    <div class="footer-bottom">&copy; VietnamWorks &nbsp;|&nbsp; vietnamworks inTECH &nbsp;|&nbsp; Powered by NAVIGOS</div>
+  </div>
+</footer>
+
+<script>
+  // Voice or manual search both land here — this mock only has one query path.
+  function goToResults() { window.location.href = 'page2-search-results.html'; }
+  document.getElementById('searchButton').addEventListener('click', goToResults);
+  document.getElementById('searchInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') goToResults();
+  });
+</script>
+</body>
+</html>
