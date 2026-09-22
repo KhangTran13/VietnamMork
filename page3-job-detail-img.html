@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Automotive Diagnostic Engineer (Workshop experience) — Job Detail — Mock Flow Page 3 (Image JD)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .ic, svg.lucide { width: 1em; height: 1em; vertical-align: -0.15em; stroke-width: 2; flex-shrink: 0; }
+  :root {
+    --blue: #005AFF; --navy: #001744; --orange: #FF7D55; --link-light: #82DCFF; --green: #1E9E52;
+    --text: #333333; --text-gray: #767676; --border: #EAEAF0; --border-light: #F1F1F1;
+    --bg-soft: #F2F6FF; --white: #FFFFFF; --radius-sm: 4px; --radius-md: 6px; --radius-lg: 12px;
+    --radius-pill: 999px; --container: 1200px;
+    --surface: #FFFFFF; --soft-surface: #FAFBFD; --page-bg: #F7F9FC; --active-tint: #F4F8FF;
+  }
+  body.dark-mode {
+    --text: #E7E9EE; --text-gray: #9AA1AC; --border: #2C303A; --border-light: #24272F;
+    --bg-soft: #182234; --surface: #1B1E24; --soft-surface: #20242C; --page-bg: #0F1115;
+    --active-tint: #16233A;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.5; color: var(--text); background: var(--page-bg); padding-bottom: 74px; transition: background .15s, color .15s; }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input, select { font-family: inherit; }
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 16px; }
+
+  .announce-bar { background: var(--blue); color: var(--white); font-size: 12.5px; }
+  .announce-bar .container { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 7px 16px; position: relative; text-align: center; }
+  .announce-bar .close-x { position: absolute; right: 16px; opacity: .85; }
+  .link-light { color: var(--link-light); text-decoration: underline; font-weight: 500; }
+
+  header.nav { background: var(--blue); padding: 12px 0; }
+  header.nav .container { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .logo .swirl { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(from 90deg, var(--orange), var(--white), var(--orange)); }
+  .search-bar { flex: 1; min-width: 180px; background: var(--surface); border-radius: var(--radius-pill); padding: 4px; display: flex; align-items: center; gap: 6px; }
+  .search-bar .search-field { flex: 1; display: flex; align-items: center; gap: 8px; padding: 8px 14px; min-width: 0; }
+  .search-bar input { border: none; outline: none; font-size: 14px; font-family: inherit; color: var(--text); width: 100%; background: transparent; }
+  .search-bar .go { width: 34px; height: 34px; border-radius: 50%; background: var(--orange); color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-right { display: flex; align-items: center; gap: 14px; color: var(--white); font-size: 13px; flex-shrink: 0; }
+  .nav-right .icon-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
+
+  main.container { padding-top: 18px; display: grid; grid-template-columns: 1fr 340px; gap: 18px; align-items: start; }
+
+  .card { background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px; }
+  .stack > .card { margin-top: 16px; }
+  .stack > .card:first-child { margin-top: 0; }
+
+  .job-head h1 { font-size: 21px; margin: 0 0 10px; }
+  .job-head .badges { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .job-head .salary { color: var(--orange); font-weight: 700; }
+  .job-head .urgent { color: var(--orange); font-weight: 700; font-size: 12.5px; display: flex; align-items: center; gap: 3px; }
+  .job-head .salary-link { color: var(--blue); font-size: 13px; text-decoration: underline; display: block; margin-bottom: 10px; }
+  .job-head .meta-row { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-gray); margin-bottom: 6px; }
+  .job-head .apply-cta { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: var(--orange); color: var(--white); font-weight: 700; font-size: 14px; border-radius: var(--radius-pill); padding: 12px 28px; display: inline-block; }
+  .btn-outline { border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 12px 22px; font-weight: 600; font-size: 14px; }
+
+  .card h2 { font-size: 16px; margin: 0 0 14px; }
+  .jd-image-block { border: 1px solid var(--border-light); border-radius: var(--radius-md); overflow: hidden; line-height: 0; }
+  .jd-image-block img { width: 100%; height: auto; display: block; }
+  .jd-note { margin-top: 10px; font-size: 11.5px; color: var(--text-gray); display: flex; align-items: center; gap: 6px; }
+  .req-text p { margin: 0 0 10px; font-size: 13.5px; }
+  .req-text p.strong { font-weight: 700; text-transform: uppercase; font-size: 13px; }
+  .req-text ul { margin: 6px 0 0; padding-left: 20px; font-size: 13.5px; }
+  .req-text li { margin-bottom: 4px; }
+
+  .benefits-block .cat { margin-bottom: 14px; }
+  .benefits-block .cat:last-child { margin-bottom: 0; }
+  .benefits-block .cat-name { font-weight: 700; font-size: 13.5px; margin-bottom: 3px; }
+  .benefits-block .cat-desc { font-size: 13.5px; color: var(--text); margin: 0; line-height: 1.5; }
+
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+  .info-grid dt { font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--text-gray); margin-bottom: 4px; }
+  .info-grid dd { margin: 0; font-size: 13.5px; }
+
+  .location-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; }
+  .location-row + .location-row { margin-top: 10px; }
+
+  .keyword-box a { display: inline-block; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 14px; font-size: 12.5px; color: var(--text); margin: 0 8px 8px 0; }
+
+  .breadcrumb { font-size: 12.5px; color: var(--text-gray); margin: 16px 0; }
+  .breadcrumb a { color: var(--blue); }
+  .breadcrumb span.sep { margin: 0 6px; }
+
+  .similar-job-card { border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px; }
+  .similar-job-card .title { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; }
+  .similar-job-card .company { color: var(--text-gray); font-size: 12.5px; margin-bottom: 6px; }
+  .similar-job-card .meta { font-size: 12.5px; margin-bottom: 8px; }
+  .similar-job-card .meta .salary { color: var(--orange); font-weight: 700; }
+  .similar-job-card .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .similar-job-card .tags span { background: var(--bg-soft); color: var(--blue); font-size: 11px; padding: 3px 9px; border-radius: var(--radius-sm); }
+
+  .side .company-logo { width: 64px; height: 64px; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--blue); font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; text-align: center; }
+  .side .company-name { text-align: center; font-weight: 700; font-size: 15px; margin-bottom: 16px; }
+  .side .info-row { display: flex; gap: 10px; font-size: 12.5px; margin-bottom: 12px; color: var(--text); }
+  .side .info-row .icon { flex-shrink: 0; opacity: .6; }
+
+  .mobile-apply-bar { display: none; }
+
+  /* ---------- Theme toggle: deliberately tiny/low-opacity — a dev/demo-prep control,
+       not part of the product UI, kept out of frame during the demo video. ---------- */
+  .theme-toggle { position: fixed; left: 7px; bottom: 7px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: .07; color: var(--text-gray); background: transparent; z-index: 60; font-size: 10px; transition: opacity .15s; }
+  .theme-toggle:hover, .theme-toggle:focus-visible { opacity: .85; }
+
+  /* ---------- Apply modal overlay (embedded so page 3 stays visible behind it) ---------- */
+  .overlay { position: fixed; inset: 0; background: rgba(10, 14, 24, .55); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 24px; }
+  .overlay[hidden] { display: none; }
+  .modal { background: var(--surface); width: 100%; max-width: 900px; max-height: 88vh; border-radius: var(--radius-lg); box-shadow: 0 20px 60px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
+  .modal-header h2 { margin: 0; font-size: 17px; font-weight: 700; }
+  .modal-header .close { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-gray); font-size: 18px; }
+
+  .modal-body { display: flex; flex: 1; min-height: 0; }
+  .modal-side { width: 260px; flex-shrink: 0; padding: 20px 24px; border-right: 1px solid var(--border-light); overflow-y: auto; }
+  .modal-side .company { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .modal-side .company .logo-box { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--blue); font-weight: 800; font-size: 9px; display: flex; align-items: center; justify-content: center; text-align: center; flex-shrink: 0; }
+  .modal-side .company .name { font-weight: 700; font-size: 13.5px; }
+  .modal-side .job-title { font-weight: 700; font-size: 14.5px; margin-bottom: 10px; }
+  .modal-side .job-meta { font-size: 12.5px; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: var(--text); }
+  .modal-side .job-meta.salary { color: var(--orange); font-weight: 700; }
+
+  .modal-scroll { flex: 1; overflow-y: auto; padding: 20px 24px 32px; }
+
+  .section { border: 1px solid var(--border-light); border-radius: var(--radius-md); margin-bottom: 16px; overflow: hidden; }
+  .section-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--soft-surface); font-weight: 700; font-size: 14px; }
+  .section-body { padding: 18px 16px; }
+
+  .radio-row { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 10px; }
+  .radio-row input { margin-top: 3px; }
+  .radio-row.active { border-color: var(--blue); background: var(--active-tint); }
+  .radio-row .rt { font-weight: 600; font-size: 13.5px; }
+  .radio-row .rt .tag { background: #FFF3E6; color: #D97A1F; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: var(--radius-sm); margin-left: 6px; }
+  .radio-row .rs { font-size: 12px; color: var(--text-gray); margin-top: 2px; }
+  .radio-row .rs a { color: var(--blue); text-decoration: underline; }
+
+  .upload-box { border: 1.5px dashed #B9CCFB; border-radius: var(--radius-md); padding: 18px; text-align: center; margin-bottom: 6px; }
+  .upload-box .btn-upload { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: var(--white); font-weight: 600; font-size: 13.5px; padding: 9px 18px; border-radius: var(--radius-pill); }
+  .upload-hint { text-align: center; font-size: 11.5px; color: var(--text-gray); margin-top: 8px; }
+
+  .avatar-row { display: flex; justify-content: center; margin-bottom: 18px; }
+  .avatar-row .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--bg-soft); display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 24px; }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; }
+  .field label .req { color: #E8442E; }
+  .field input, .field select { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13.5px; color: var(--text); background: var(--surface); outline: none; }
+  .field input::placeholder { color: #A7AEBE; }
+  .field input:focus, .field select:focus { border-color: var(--blue); }
+  .tel-input { display: flex; align-items: stretch; }
+  .tel-input .cc { border: 1px solid var(--border); border-right: none; border-radius: var(--radius-sm) 0 0 var(--radius-sm); padding: 9px 10px; font-size: 13px; background: var(--soft-surface); flex-shrink: 0; display:flex; align-items:center; gap:4px; }
+  .tel-input input { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; width: 100%; }
+  .field .unit { position: relative; }
+  .field .unit span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--text-gray); }
+  .toggle-group { display: flex; gap: 10px; }
+  .toggle-group button { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px; font-size: 13.5px; background: var(--surface); color: var(--text); }
+  .toggle-group button.on { border-color: var(--blue); color: var(--blue); background: var(--active-tint); font-weight: 600; }
+  .chip-select { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 38px; }
+  .chip-select .chip { background: var(--bg-soft); color: var(--blue); font-size: 12px; padding: 3px 9px; border-radius: var(--radius-sm); }
+
+  /* ---------- searchable multi-select (used by "5 phúc lợi mong muốn") ---------- */
+  .multiselect { position: relative; }
+  .multiselect-trigger { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; min-height: 38px; background: var(--surface); display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+  .multiselect-trigger .chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .multiselect-trigger .placeholder { color: #A7AEBE; font-size: 13px; }
+  .multiselect-trigger .chip { background: var(--bg-soft); color: var(--blue); font-size: 12px; padding: 3px 6px 3px 9px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 5px; }
+  .multiselect-trigger .chip .x { cursor: pointer; font-weight: 700; opacity: .55; line-height: 1; }
+  .multiselect-trigger .chip .x:hover { opacity: 1; }
+  .multiselect-trigger .chevron { color: var(--text-gray); font-size: 11px; flex-shrink: 0; transition: transform .15s; }
+  .multiselect.open .chevron { transform: rotate(180deg); }
+  .multiselect-panel { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 8px 24px rgba(0,0,0,.14); z-index: 30; overflow: hidden; }
+  .multiselect-search { padding: 8px; border-bottom: 1px solid var(--border-light); }
+  .multiselect-search input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; font-size: 13px; outline: none; }
+  .multiselect-options { list-style: none; margin: 0; padding: 6px; max-height: 220px; overflow-y: auto; }
+  .multiselect-options li { display: flex; align-items: center; gap: 10px; padding: 8px; font-size: 13.5px; border-radius: var(--radius-sm); }
+  .multiselect-options li:hover { background: var(--active-tint); }
+  .multiselect-options li.disabled { opacity: .4; }
+  .multiselect-options li[hidden] { display: none; }
+  .checkbox-sq { width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 12px; font-weight: 700; }
+  .multiselect-options li.selected .checkbox-sq { background: var(--blue); border-color: var(--blue); }
+  .multiselect-options li.selected .checkbox-sq::after { content: "\2713"; }
+  .multiselect-hint { padding: 7px 12px; font-size: 11px; color: var(--text-gray); border-top: 1px solid var(--border-light); }
+  .checkline { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 14px; }
+
+  .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-top: 1px solid var(--border-light); flex-shrink: 0; flex-wrap: wrap; }
+  .modal-footer .agree { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .modal-footer .agree a { color: var(--blue); text-decoration: underline; }
+  .btn-submit { background: var(--orange); color: var(--white); font-weight: 700; font-size: 14px; border-radius: var(--radius-pill); padding: 11px 30px; }
+
+  @media (max-width: 900px) {
+    main.container { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .search-bar { display: none; }
+    .job-head .apply-cta { display: none; }
+    .mobile-apply-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 10px 16px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); align-items: center; gap: 12px; z-index: 20; }
+    .mobile-apply-bar .info { flex: 1; min-width: 0; }
+    .mobile-apply-bar .info .t { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mobile-apply-bar .info .s { color: var(--orange); font-weight: 700; font-size: 12px; }
+    .mobile-apply-bar .btn-primary { padding: 11px 22px; font-size: 13px; }
+    .info-grid { grid-template-columns: 1fr; }
+
+    .overlay { padding: 0; align-items: stretch; }
+    .modal { max-width: none; max-height: none; height: 100%; border-radius: 0; }
+    .modal-body { flex-direction: column; }
+    .modal-side { width: auto; border-right: none; border-bottom: 1px solid var(--border-light); flex-shrink: 0; max-height: none; padding: 16px 18px; }
+    .modal-scroll { padding: 16px 18px 32px; }
+    .field-grid { grid-template-columns: 1fr; }
+    .modal-footer { padding: 12px 18px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); flex-direction: column; align-items: stretch; }
+    .btn-submit { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce-bar">
+  <div class="container">
+    <i data-lucide="shield-check" class="ic"></i>
+    <span>Hãy bảo vệ chính mình trước các trường hợp mạo danh VietnamWorks.</span>
+    <a href="#" class="link-light">Xem thêm</a>
+    <span class="close-x"><i data-lucide="x" class="ic"></i></span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="container">
+    <a href="page1-home.html" class="logo"><span class="swirl"></span>vietnamworks</a>
+    <div class="search-bar">
+      <div class="search-field"><i data-lucide="search" class="ic"></i><input type="text" value="automotive diagnostic engineer"></div>
+      <span class="go"><i data-lucide="search" class="ic"></i></span>
+    </div>
+    <nav class="nav-right">
+      <span class="icon-btn"><i data-lucide="bell" class="ic"></i></span>
+      <span class="icon-btn"><i data-lucide="user" class="ic"></i></span>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="stack">
+    <div class="card job-head">
+      <h1>Automotive Diagnostic Engineer (Workshop experience)</h1>
+      <div class="badges">
+        <span class="salary">Thương lượng</span>
+        <span class="urgent"><i data-lucide="zap" class="ic"></i> Urgent</span>
+      </div>
+      <a href="#" class="salary-link">Mức lương phổ biến của vị trí này là bao nhiêu?</a>
+      <div class="meta-row">
+        <span><i data-lucide="clock" class="ic"></i> Hết hạn trong 22 ngày</span>
+        <span><i data-lucide="eye" class="ic"></i> 283 lượt xem</span>
+        <span><i data-lucide="map-pin" class="ic"></i> Hà Nội, Hồ Chí Minh</span>
+      </div>
+      <div class="meta-row">
+        <span>Đăng 8 ngày trước</span>
+        <span style="color:var(--green)">Hãy là 1 trong 20 ứng viên đầu tiên</span>
+      </div>
+      <div class="apply-cta">
+        <button class="btn-primary" id="btn-apply-desktop">Nộp đơn</button>
+        <button class="btn-outline"><i data-lucide="heart" class="ic"></i> Lưu công việc này</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Mô tả công việc</h2>
+      <!-- The job description here was originally posted by the employer as a flattened
+           image (not selectable text) — reproduced below as two stitched screenshots.
+           This is the accessibility barrier the vision-AI-read-aloud branch (step 4) targets. -->
+      <div class="jd-image-block">
+        <img src="assets/jd-description-bosch-1.png" alt="Job description image, part 1 of 2" loading="lazy">
+        <img src="assets/jd-description-bosch-2.png" alt="Job description image, part 2 of 2" loading="lazy">
+      </div>
+      <div class="jd-note"><i data-lucide="info" class="ic"></i> Mô tả công việc được nhà tuyển dụng đăng tải dưới dạng hình ảnh.</div>
+    </div>
+
+    <div class="card">
+      <h2>Yêu cầu công việc</h2>
+      <div class="req-text">
+        <p class="strong">Who We Want</p>
+        <p>We're looking for a Bachelor-qualified automotive engineer who has already diagnosed and repaired real vehicles on the shop floor, not a lab-only tester. The ideal candidate is comfortable running Bosch and third-party diagnostic testers end to end and knows their way around a vehicle's electrical and communication systems.</p>
+        <p>Strong candidates will have:</p>
+        <ul>
+          <li>Bachelor's degree in Automotive Engineering</li>
+          <li>Strong vehicle system and sub-system knowledge</li>
+          <li>Proven vehicle diagnosis and troubleshooting experience</li>
+          <li>Hands-on use of diagnostic testers (VIDA, Xentry, GDS, ADT, SDT-II, DiagBox, HDS, Launch, Autel, G-Scan, Zenith)</li>
+          <li>Knowledge of CAN, CAN FD, DoIP, UDS, J1939</li>
+          <li>Experience with Vector/Samtec analyzer &amp; simulation tools (HSX, HS+)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Các phúc lợi dành cho bạn</h2>
+      <div class="benefits-block">
+        <div class="cat">
+          <div class="cat-name">Thưởng</div>
+          <p class="cat-desc">13th-month salary bonus + attractive performance bonus (you'll love it!) + annual performance appraisal</p>
+        </div>
+        <div class="cat">
+          <div class="cat-name">Chăm sóc sức khoẻ</div>
+          <p class="cat-desc">Premium health insurance for employee and 02 family members</p>
+        </div>
+        <div class="cat">
+          <div class="cat-name">Nghỉ phép có lương</div>
+          <p class="cat-desc">15++ days of annual leave + 1 day of birthday leave</p>
+        </div>
+        <div class="cat">
+          <div class="cat-name">Đào tạo</div>
+          <p class="cat-desc">Various training on hot-trend technologies/ foreign language (English/Chinese/Japanese) and soft-skills</p>
+        </div>
+        <div class="cat">
+          <div class="cat-name">Hoạt động nhóm</div>
+          <p class="cat-desc">Fitness &amp; sport activities: football, badminton, yoga, Aerobic. Join in various team building, company trip, year-end party, tech talks and a lot of charity events</p>
+        </div>
+        <div class="cat">
+          <div class="cat-name">Khác</div>
+          <p class="cat-desc">Working in one of the Best Places to Work in Vietnam and Top 30 of the Most Innovative Companies all over the world. Join a dynamic and fast growing global company (English-speaking environment)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Thông tin việc làm</h2>
+      <dl class="info-grid">
+        <div><dt>NGÀY ĐĂNG</dt><dd>14/09/2026</dd></div>
+        <div><dt>CẤP BẬC</dt><dd>Nhân viên</dd></div>
+        <div><dt>NGÀNH NGHỀ</dt><dd>Khoa Học &amp; Kỹ Thuật &gt; Kỹ Thuật Ô Tô</dd></div>
+        <div><dt>KỸ NĂNG</dt><dd>Automotive Engineering, Mechatronics Engineering, Diagnose, Software Engineering, Chẩn Đoán Kỹ Thuật</dd></div>
+        <div><dt>LĨNH VỰC</dt><dd>Ô tô</dd></div>
+        <div><dt>NGÔN NGỮ TRÌNH BÀY HỒ SƠ</dt><dd>Bất kỳ</dd></div>
+        <div><dt>SỐ NĂM KINH NGHIỆM TỐI THIỂU</dt><dd>3</dd></div>
+        <div><dt>QUỐC TỊCH</dt><dd>Không giới hạn</dd></div>
+        <div><dt>TRÌNH ĐỘ HỌC VẤN TỐI THIỂU</dt><dd>Cử nhân</dd></div>
+        <div><dt>GIỚI TÍNH</dt><dd>Bất kỳ</dd></div>
+        <div><dt>ĐỘ TUỔI MONG MUỐN</dt><dd>24-39</dd></div>
+        <div><dt>TÌNH TRẠNG HÔN NHÂN</dt><dd>Bất kỳ</dd></div>
+        <div><dt>SỐ LƯỢNG TUYỂN DỤNG</dt><dd>2</dd></div>
+        <div><dt>NGÀY LÀM VIỆC</dt><dd>T2 - T6</dd></div>
+        <div><dt>GIỜ LÀM VIỆC</dt><dd>09:00 - 18:00</dd></div>
+        <div><dt>LOẠI HÌNH LÀM VIỆC</dt><dd>Toàn thời gian</dd></div>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h2>Địa điểm làm việc</h2>
+      <div class="location-row"><i data-lucide="map-pin" class="ic"></i> <span>Capital Place Building, 29 Lieu Giai street, Ngoc Ha Ward, Ha Noi, Vietnam</span></div>
+      <div class="location-row"><i data-lucide="map-pin" class="ic"></i> <span>364 Cong Hoa Street, Ward 13, Tan Binh District, Ho Chi Minh City, Vietnam</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Việc làm tương tự</h2>
+      <div class="similar-job-card">
+        <div class="title">Quản Lý Hậu Mãi Vùng Ô Tô</div>
+        <div class="company">VINFAST TRADING AND PRODUCTION JSC</div>
+        <div class="meta"><span class="salary">Thương lượng</span> &nbsp;|&nbsp; Hồ Chí Minh</div>
+        <div class="tags"><span>Quản Lý Dịch Vụ Hậu Mãi</span><span>Điều Phối Dự Án</span><span>Xử Lý Khiếu Nại</span><span>Quản Lý Phụ Tùng</span><span>Kỹ năng giao tiếp</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:13px;">Từ khoá</h2>
+      <div class="keyword-box">
+        <a href="#">Khoa Học &amp; Kỹ Thuật</a>
+        <a href="#">Kỹ Thuật Ô Tô</a>
+        <a href="#">Ô tô</a>
+        <a href="#">Automotive Engineering</a>
+        <a href="#">Mechatronics Engineering</a>
+        <a href="#">Diagnose</a>
+        <a href="#">Software Engineering</a>
+        <a href="#">Chẩn Đoán Kỹ Thuật</a>
+        <a href="#">Bosch Global Software Technologies Company Limited</a>
+        <a href="#">Hà Nội</a>
+        <a href="#">Hồ Chí Minh</a>
+      </div>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="page1-home.html">Trang Chủ</a><span class="sep">›</span>
+      <a href="page2-search-results.html">Việc Làm</a><span class="sep">›</span>
+      <a href="#">Ô Tô</a><span class="sep">›</span>
+      <a href="#">Bosch Global Software Technologies Company Limited</a><span class="sep">›</span>
+      <span>Automotive Diagnostic Engineer (Workshop Experience)</span>
+    </div>
+  </div>
+
+  <aside class="side card">
+    <div class="company-logo">BOSCH</div>
+    <div class="company-name">Bosch Global Software Technologies Company Limited</div>
+    <div class="info-row"><span class="icon"><i data-lucide="map-pin" class="ic"></i></span><span>Etown Building, 364 Cong Hoa Street, Tan Binh Ward, Ho Chi Minh City, Vietnam</span></div>
+    <div class="info-row"><span class="icon"><i data-lucide="phone" class="ic"></i></span><span>Talent Acquisition Team</span></div>
+    <a href="#" style="font-size:12.5px;color:var(--blue);text-decoration:underline;display:block;margin-top:4px;">Trang Văn hóa công ty <i data-lucide="external-link" class="ic"></i></a>
+  </aside>
+</main>
+
+<div class="mobile-apply-bar">
+  <div class="info">
+    <div class="t">Automotive Diagnostic Engineer</div>
+    <div class="s">Thương lượng</div>
+  </div>
+  <button class="btn-primary" id="btn-apply-mobile">Nộp đơn</button>
+</div>
+
+<!-- Apply modal: an overlay ON TOP of this same page (page 3 stays visible/backdropped
+     behind it), opened by the "Nộp đơn" buttons above — not a separate page navigation,
+     so the job listing is still there when the applicant closes it. -->
+<div class="overlay" id="applyOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 id="modal-title">Ứng tuyển công việc</h2>
+      <button class="close" id="btn-close-modal" aria-label="Đóng"><i data-lucide="x" class="ic"></i></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-side">
+        <div class="company">
+          <div class="logo-box">BOSCH</div>
+          <div class="name">Bosch Global Software Technologies Company Limited</div>
+        </div>
+        <div class="job-title">Automotive Diagnostic Engineer (Workshop experience)</div>
+        <div class="job-meta salary"><i data-lucide="wallet" class="ic"></i> Thương lượng</div>
+        <div class="job-meta"><i data-lucide="map-pin" class="ic"></i> Hà Nội, Hồ Chí Minh</div>
+      </div>
+
+      <div class="modal-scroll" id="modalScroll">
+
+        <div class="section">
+          <div class="section-head">Hồ sơ của bạn <span><i data-lucide="chevron-up" class="ic"></i></span></div>
+          <div class="section-body">
+            <label class="radio-row">
+              <input type="radio" name="apply-type" id="field-profile-online">
+              <span><span class="rt">Hồ sơ VietnamWorks <span class="tag">Chưa được duyệt</span></span><span class="rs">Hồ sơ trực tuyến • Hoàn thiện: 23% • <a href="#">Cập nhật</a></span></span>
+            </label>
+            <label class="radio-row active">
+              <input type="radio" name="apply-type" id="field-profile-file" checked>
+              <span><span class="rt">CV_UngVien.pdf</span><span class="rs">Hồ sơ đính kèm • Đã tải lên hôm nay</span></span>
+            </label>
+            <div class="upload-box">
+              <button class="btn-upload" type="button"><i data-lucide="upload" class="ic"></i> Chọn hồ sơ từ máy của bạn</button>
+              <div class="upload-hint">Hỗ trợ định dạng .doc, .docx, .pdf có kích thước dưới 5120KB</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Thông tin ứng tuyển <span><i data-lucide="chevron-up" class="ic"></i></span></div>
+          <div class="section-body">
+            <div class="avatar-row"><div class="avatar"><i data-lucide="user" class="ic"></i></div></div>
+
+            <div class="field-grid">
+              <div class="field"><label>Họ <span class="req">*</span></label><input type="text" id="field-lastName" name="lastName" placeholder="Nhập họ của bạn"></div>
+              <div class="field"><label>Tên <span class="req">*</span></label><input type="text" id="field-firstName" name="firstName" placeholder="Nhập tên của bạn"></div>
+
+              <div class="field"><label>Chức danh <span class="req">*</span></label><input type="text" id="field-jobTitle" name="jobTitle" placeholder="Nhập chức danh của bạn"></div>
+              <div class="field"><label>Cấp bậc hiện tại <span class="req">*</span></label>
+                <select id="field-currentLevel" name="currentLevel"><option>Vui lòng chọn...</option><option>Mới tốt nghiệp</option><option>Nhân viên</option><option>Trưởng nhóm</option><option>Quản lý</option><option>Giám đốc và cấp cao hơn</option></select>
+              </div>
+
+              <div class="field unit"><label>Số năm kinh nghiệm</label><input type="number" id="field-yearsExp" name="yearsExp" placeholder="Nhập số năm kinh nghiệm"><span>Năm</span></div>
+              <div class="field"><label>Bằng cấp cao nhất <span class="req">*</span></label>
+                <select id="field-degree" name="degree"><option>Vui lòng chọn...</option><option>Trung học</option><option>Cao đẳng</option><option>Đại học</option><option>Thạc sĩ</option><option>Tiến sĩ</option></select>
+              </div>
+
+              <div class="field"><label>Ngành nghề hiện tại</label>
+                <select id="field-currentIndustry" name="currentIndustry"><option>Vui lòng chọn...</option><option>Công nghệ thông tin</option><option>Ô tô</option><option>Kỹ thuật</option></select>
+              </div>
+              <div class="field"><label>Lĩnh vực hiện tại</label>
+                <select id="field-currentField" name="currentField"><option>Vui lòng chọn...</option><option>Kỹ thuật ô tô</option><option>Phần mềm</option><option>Cơ khí</option></select>
+              </div>
+
+              <div class="field unit"><label>Mức lương hiện tại</label><input type="number" id="field-currentSalary" name="currentSalary" placeholder="Nhập mức lương"><span>USD/tháng</span></div>
+              <div class="field">
+                <label>Điện thoại <span class="req">*</span></label>
+                <!-- This is the field step 6 programmatically edits. -->
+                <div class="tel-input">
+                  <span class="cc"><i data-lucide="flag" class="ic"></i> +84</span>
+                  <input type="tel" id="field-phone" name="phone" placeholder="Nhập số điện thoại" autocomplete="tel" inputmode="tel">
+                </div>
+              </div>
+            </div>
+
+            <div class="field-grid" style="margin-top:14px;">
+              <div class="field"><label>Ngày sinh <span class="req">*</span></label><input type="text" id="field-dob" name="dob" placeholder="DD/MM/YYYY"></div>
+              <div class="field"><label>Quốc tịch <span class="req">*</span></label>
+                <select id="field-nationality" name="nationality"><option>Người Việt Nam</option><option>Khác</option></select>
+              </div>
+
+              <div class="field"><label>Giới tính <span class="req">*</span></label>
+                <div class="toggle-group" role="radiogroup" aria-label="Giới tính">
+                  <button type="button" id="field-gender-male">Nam</button>
+                  <button type="button" id="field-gender-female">Nữ</button>
+                </div>
+              </div>
+              <div class="field"><label>Tình trạng hôn nhân <span class="req">*</span></label>
+                <div class="toggle-group" role="radiogroup" aria-label="Tình trạng hôn nhân">
+                  <button type="button" id="field-marital-single">Độc thân</button>
+                  <button type="button" id="field-marital-married">Đã kết hôn</button>
+                </div>
+              </div>
+
+              <div class="field"><label>Quốc gia/ Tỉnh thành/ Quận huyện <span class="req">*</span></label>
+                <select id="field-location" name="location"><option>Vui lòng chọn...</option><option>Việt Nam/ Hồ Chí Minh/ Quận 4</option><option>Việt Nam/ Hà Nội/ Cầu Giấy</option></select>
+              </div>
+              <div class="field"><label>Địa chỉ</label><input type="text" id="field-address" name="address" placeholder="Nhập địa chỉ của bạn"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head">Công việc mong muốn <span><i data-lucide="chevron-up" class="ic"></i></span></div>
+          <div class="section-body">
+            <div class="field-grid">
+              <div class="field"><label>Nơi làm việc mong muốn <span class="req">*</span></label>
+                <div class="chip-select" id="field-desiredLocation"><span style="color:#A7AEBE;font-size:13px;">Chọn nơi làm việc</span></div>
+              </div>
+              <div class="field">
+                <label>5 phúc lợi mong muốn</label>
+                <div class="multiselect" id="field-desiredBenefits">
+                  <button type="button" class="multiselect-trigger" id="benefitsTrigger">
+                    <span class="chips" id="benefitsChips"><span class="placeholder">Chọn phúc lợi (tối đa 5)</span></span>
+                    <span class="chevron"><i data-lucide="chevron-down" class="ic"></i></span>
+                  </button>
+                  <div class="multiselect-panel" id="benefitsPanel" hidden>
+                    <div class="multiselect-search"><input type="text" id="benefitsSearch" placeholder="Tìm phúc lợi..."></div>
+                    <ul class="multiselect-options" id="benefitsOptions">
+                      <li data-value="Căn tin"><span class="checkbox-sq"></span>Căn tin</li>
+                      <li data-value="Đào tạo"><span class="checkbox-sq"></span>Đào tạo</li>
+                      <li data-value="Điện thoại"><span class="checkbox-sq"></span>Điện thoại</li>
+                      <li data-value="Du lịch"><span class="checkbox-sq"></span>Du lịch</li>
+                      <li data-value="Giải thưởng"><span class="checkbox-sq"></span>Giải thưởng</li>
+                      <li data-value="Laptop"><span class="checkbox-sq"></span>Laptop</li>
+                      <li data-value="Khám sức khỏe"><span class="checkbox-sq"></span>Khám sức khỏe</li>
+                      <li data-value="Nghỉ phép"><span class="checkbox-sq"></span>Nghỉ phép</li>
+                      <li data-value="Thưởng"><span class="checkbox-sq"></span>Thưởng</li>
+                      <li data-value="Khác"><span class="checkbox-sq"></span>Khác</li>
+                    </ul>
+                    <div class="multiselect-hint" id="benefitsHint">Chọn tối đa 5 mục</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field unit"><label>Mức lương mong muốn <span class="req">*</span></label><input type="number" id="field-desiredSalary" name="desiredSalary" placeholder="Nhập mức lương"><span>USD/tháng</span></div>
+              <div class="field"><label>Cấp bậc mong muốn <span class="req">*</span></label>
+                <select id="field-desiredLevel" name="desiredLevel"><option>Vui lòng chọn...</option><option>Mới tốt nghiệp</option><option>Nhân viên</option><option>Quản lý</option></select>
+              </div>
+            </div>
+            <label class="checkline"><input type="checkbox" checked> Hiển thị mức lương mong muốn cho nhà tuyển dụng</label>
+            <div class="field-grid">
+              <div class="field"><label>Ngành nghề <span class="req">*</span></label>
+                <select id="field-desiredIndustry" name="desiredIndustry"><option>Vui lòng chọn...</option><option>Khoa học &amp; Kỹ thuật</option><option>Ô tô</option></select>
+              </div>
+              <div class="field"><label>Lĩnh vực <span class="req">*</span></label>
+                <select id="field-desiredField" name="desiredField"><option>Vui lòng chọn...</option><option>Kỹ thuật ô tô</option><option>Phần mềm</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <label class="agree"><input type="checkbox" id="field-agree"> Tôi đồng ý với <a href="#">Quy định bảo mật</a> của nhà tuyển dụng này. <span style="color:#E8442E">(*)</span></label>
+      <a href="page5-success.html" class="btn-submit" id="field-submit">Ứng tuyển</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var overlay = document.getElementById('applyOverlay');
+  function openApply() { overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+  function closeApply() { overlay.hidden = true; document.body.style.overflow = ''; }
+  document.getElementById('btn-apply-desktop').addEventListener('click', openApply);
+  document.getElementById('btn-apply-mobile').addEventListener('click', openApply);
+  document.getElementById('btn-close-modal').addEventListener('click', closeApply);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !overlay.hidden) closeApply();
+  });
+
+  // "5 phúc lợi mong muốn" — searchable multi-select, max 5, square checkboxes
+  (function () {
+    var wrap = document.getElementById('field-desiredBenefits');
+    var trigger = document.getElementById('benefitsTrigger');
+    var panel = document.getElementById('benefitsPanel');
+    var search = document.getElementById('benefitsSearch');
+    var hint = document.getElementById('benefitsHint');
+    var chipsWrap = document.getElementById('benefitsChips');
+    var items = Array.prototype.slice.call(document.querySelectorAll('#benefitsOptions li'));
+    var MAX = 5;
+    var selected = [];
+
+    function render() {
+      chipsWrap.innerHTML = '';
+      if (selected.length === 0) {
+        chipsWrap.innerHTML = '<span class="placeholder">Chọn phúc lợi (tối đa 5)</span>';
+      } else {
+        selected.forEach(function (val) {
+          var chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.innerHTML = val + ' <span class="x" data-val="' + val + '">&times;</span>';
+          chipsWrap.appendChild(chip);
+        });
+      }
+      items.forEach(function (li) {
+        var val = li.getAttribute('data-value');
+        var isSel = selected.indexOf(val) > -1;
+        li.classList.toggle('selected', isSel);
+        li.classList.toggle('disabled', !isSel && selected.length >= MAX);
+      });
+      hint.textContent = 'Đã chọn ' + selected.length + '/' + MAX;
+    }
+
+    function toggleValue(val) {
+      var idx = selected.indexOf(val);
+      if (idx > -1) selected.splice(idx, 1);
+      else if (selected.length < MAX) selected.push(val);
+      render();
+    }
+
+    function openPanel() { panel.hidden = false; wrap.classList.add('open'); search.value = ''; items.forEach(function (li) { li.hidden = false; }); search.focus(); }
+    function closePanel() { panel.hidden = true; wrap.classList.remove('open'); }
+
+    trigger.addEventListener('click', function () {
+      if (panel.hidden) openPanel(); else closePanel();
+    });
+    items.forEach(function (li) {
+      li.addEventListener('click', function () {
+        if (li.classList.contains('disabled')) return;
+        toggleValue(li.getAttribute('data-value'));
+      });
+    });
+    chipsWrap.addEventListener('click', function (e) {
+      if (e.target.classList.contains('x')) {
+        e.stopPropagation();
+        toggleValue(e.target.getAttribute('data-val'));
+      }
+    });
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      items.forEach(function (li) {
+        li.hidden = li.getAttribute('data-value').toLowerCase().indexOf(q) === -1;
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) closePanel();
+    });
+
+    render();
+  })();
+</script>
+
+<button type="button" id="themeToggle" class="theme-toggle" aria-label="Chuyển giao diện sáng/tối" title="Chuyển giao diện sáng/tối"><i data-lucide="moon" class="ic"></i></button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>if (window.lucide) { lucide.createIcons(); }</script>
+<script>
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var KEY = 'mockflow-theme';
+    function apply(mode) {
+      document.body.classList.toggle('dark-mode', mode === 'dark');
+      btn.innerHTML = '<i data-lucide="' + (mode === 'dark' ? 'sun' : 'moon') + '" class="ic"></i>';
+      if (window.lucide) lucide.createIcons();
+    }
+    apply(localStorage.getItem(KEY) === 'dark' ? 'dark' : 'light');
+    btn.addEventListener('click', function () {
+      var next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+      apply(next);
+      localStorage.setItem(KEY, next);
+    });
+  })();
+</script>
+</body>
+</html>
